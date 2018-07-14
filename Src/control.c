@@ -542,6 +542,33 @@ void RobotGoTo(float X_I,float Y_I,float Theta_I)
 }
 
 
+//±‹’œ÷±––
+void RobotGoAvoidance(void)
+{
+	float D_Theta,Distance;
+	
+	D_Theta=Radar.Angle-270;
+	Distance=Radar.Distance*sin(D_Theta);
+	
+	while((Distance<35)||(Distance>(-35))){
+		if(Distance>0){
+			GetMotorVelocity_Self(6,0,0);
+			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
+		}
+		else{
+			GetMotorVelocity_Self(-6,0,0);
+			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
+		}
+	 GetMotorVelocity_Self(0,10,0);
+	 SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
+	 delay_ms(1000);
+		SetPWM(0,0,0);
+		
+	}
+	
+}
+
+
 u8 DownShotUp(void)
 {
 	Robot_armDown();

@@ -289,6 +289,9 @@ int main(void)
 						break;
 				}
 				break;
+			case 1:
+				break;//传球第一回合
+				
 		}
 					
 	}
