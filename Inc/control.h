@@ -28,8 +28,8 @@
 #define MOTOR_L 0.2013f		//轮到机器人中心的距离
 #define MOTOR_R 0.0508f		//轮子的半径
 
-#define MOTOR_STATIC_1 4000		//TIM9 CH1 PE5
-#define MOTOR_STATIC_2 4000  		//TIM9 CH2 PE6
+#define MOTOR_STATIC_1 3999		//TIM9 CH1 PE5
+#define MOTOR_STATIC_2 3999  		//TIM9 CH2 PE6
 
 #define RADAR_MID 268	//雷达定位中心
 #define VISION_MID 320	//视觉定位中心

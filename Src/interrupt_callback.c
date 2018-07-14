@@ -51,7 +51,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2, USART2_REC_LEN);
 
 		GetYaw();
-		//printf("%f\n",BasketballRobot.ThetaD);
+		printf("%.2f\n",BasketballRobot.ThetaD);
 		
 		LED0 = !LED0;
 		LED1 = !LED0;

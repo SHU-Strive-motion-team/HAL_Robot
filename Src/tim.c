@@ -285,7 +285,7 @@ void MX_TIM9_Init(void)
   htim9.Instance = TIM9;
   htim9.Init.Prescaler = 83;
   htim9.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim9.Init.Period = 4999;
+  htim9.Init.Period = 3999;
   htim9.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   if (HAL_TIM_Base_Init(&htim9) != HAL_OK)
   {

@@ -50,5 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-*.15201
-*.15201
+*.crf
+*.crf
+*.crf

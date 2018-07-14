@@ -29,16 +29,16 @@ void FindBall_vision(u8 ball)
 	{
 		case 1:
 			FindBasketball();
-			delay_ms(10000);
+			delay_ms(100);
 			FindBasketball();
-			delay_ms(10000);
+			delay_ms(100);
 			FindBasketball();
 			break;
 		case 3:
 			FindVolleyball();
-			delay_ms(10000);
+			delay_ms(100);
 			FindVolleyball();
-			delay_ms(10000);
+			delay_ms(100);
 			FindVolleyball();
 			break;
 	}

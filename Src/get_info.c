@@ -30,7 +30,7 @@ void GetYaw(void)
 		for(i = 0;i <10;i++)
 			sum += aRxBuffer2[i];
 		
-		
+		printf("%x\r\n",sum);
 		//Æ«º½½Ç£¨z Öá£© Yaw=((YawH<<8)|YawL)/32768*180(¡ã)
 		if(sum == aRxBuffer2[10])
 		{				
