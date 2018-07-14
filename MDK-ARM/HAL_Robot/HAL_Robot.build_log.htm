@@ -3,51 +3,95 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ¦ÌVision V5.15
-Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information:  ,  , LIC=4ZLLQ-NW3NQ-QG47I-THGJ8-K8DH6-QZFQB
+IDE-Version: ¦ÌVision V5.24.2.86
+Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: SDF SADF, AAEEW, LIC=50DUH-W591C-KSRYM-XGPDX-XSR48-HHYFZ
  
 Tool Versions:
-Toolchain:       MDK-ARM Professional  Version: 5.15.0
-Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.05 update 2 (build 169)
-Assembler:       Armasm.exe V5.05 update 2 (build 169)
-Linker/Locator:  ArmLink.exe V5.05 update 2 (build 169)
-Library Manager: ArmAr.exe V5.05 update 2 (build 169)
-Hex Converter:   FromElf.exe V5.05 update 2 (build 169)
-CPU DLL:         SARMCM3.DLL V5.15.0
-Dialog DLL:      DCM.DLL V1.13.2.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.15.0_KEIL
-Dialog DLL:      TCM.DLL V1.14.5.0
+Toolchain:       MDK-ARM Professional  Version: 5.11.0.0
+Toolchain Path:  D:\MDK5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.04 update 1 (build 49)
+Assembler:       Armasm.exe V5.04 update 1 (build 49)
+Linker/Locator:  ArmLink.exe V5.04 update 1 (build 49)
+Library Manager: ArmAr.exe V5.04 update 1 (build 49)
+Hex Converter:   FromElf.exe V5.04 update 1 (build 49)
+CPU DLL:         SARMCM3.DLL V5.11.0.0
+Dialog DLL:      DCM.DLL V1.11.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.6.0_KEIL
+Dialog DLL:      TCM.DLL V1.14.1.0
  
 <h2>Project:</h2>
-E:\myCODE\GitHub\HAL_Robot\MDK-ARM\HAL_Robot.uvprojx
-Project File Date:  07/09/2018
+E:\ÀºÇò×é\HAL_Robot\MDK-ARM\HAL_Robot.uvprojx
+Project File Date:  07/14/2018
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.04 update 1 (build 49)', folder: 'D:\MDK5\ARM\ARMCC\Bin'
 Build target 'HAL_Robot'
+assembling startup_stm32f407xx.s...
+compiling stm32f4xx_hal.c...
+compiling stm32f4xx_hal_dma_ex.c...
+compiling stm32f4xx_hal_rcc.c...
+compiling stm32f4xx_hal_dma.c...
+compiling stm32f4xx_hal_tim.c...
+compiling stm32f4xx_hal_pwr.c...
+compiling stm32f4xx_ll_fsmc.c...
+compiling stm32f4xx_hal_tim_ex.c...
+compiling stm32f4xx_hal_rcc_ex.c...
+compiling stm32f4xx_hal_sram.c...
+compiling stm32f4xx_hal_flash_ex.c...
+compiling stm32f4xx_hal_uart.c...
+compiling stm32f4xx_hal_gpio.c...
+compiling stm32f4xx_hal_flash_ramfunc.c...
+compiling stm32f4xx_hal_cortex.c...
+compiling stm32f4xx_hal_pwr_ex.c...
+compiling stm32f4xx_hal_flash.c...
+compiling fsmc.c...
+compiling stm32f4xx_it.c...
+compiling usart.c...
+../Src/usart.c(343): warning:  #177-D: variable "CheckSum_3" was declared but never referenced
+  	uint8_t  CheckSum_3 = 0;
+../Src/usart.c: 1 warning, 0 errors
+compiling tim.c...
+compiling gpio.c...
 compiling main.c...
+compiling stm32f4xx_hal_msp.c...
+compiling sys.c...
+compiling delay.c...
+compiling control.c...
+compiling remote.c...
+compiling get_info.c...
+compiling find_ball.c...
+compiling lcd.c...
+compiling mpu6050.c...
+compiling interrupt_callback.c...
+compiling system_stm32f4xx.c...
 linking...
-Program Size: Code=28268 RO-data=18980 RW-data=60 ZI-data=2324  
-"HAL_Robot\HAL_Robot.axf" - 0 Error(s), 0 Warning(s).
+Program Size: Code=28224 RO-data=18976 RW-data=60 ZI-data=2324  
+"HAL_Robot\HAL_Robot.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.4.3.0.pack
-                ARM::CMSIS:CORE:4.1.0
+                http://www.keil.com/pack/ARM.CMSIS.4.1.1.pack
+                ARM.CMSIS.4.1.1
                 CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 4.1.0
+   * Component: CORE Version: 3.30.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.1.0.8.pack
+                Keil.STM32F4xx_DFP.1.0.8
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
-  E:\myCODE\GitHub\HAL_Robot\MDK-ARM\RTE
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include
-  C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.5.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  .\RTE\_HAL_Robot
+  D:\MDK5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include
+  D:\MDK5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:4.1.0
+   * Component: ARM::CMSIS:CORE:3.30.0
+      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
+Build Time Elapsed:  00:01:42
 </pre>
 </body>
 </html>

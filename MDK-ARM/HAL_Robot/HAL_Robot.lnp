@@ -1,4 +1,4 @@
---cpu Cortex-M4.fp
+--cpu=Cortex-M4.fp
 "hal_robot\startup_stm32f407xx.o"
 "hal_robot\stm32f4xx_hal.o"
 "hal_robot\stm32f4xx_hal_dma_ex.o"
@@ -35,6 +35,6 @@
 "hal_robot\interrupt_callback.o"
 "hal_robot\system_stm32f4xx.o"
 --library_type=microlib --strict --scatter "HAL_Robot\HAL_Robot.sct"
---summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "HAL_Robot.map" -o HAL_Robot\HAL_Robot.axf
