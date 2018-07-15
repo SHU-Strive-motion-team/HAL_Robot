@@ -559,6 +559,38 @@ u8 DownShotUp(void)
 	return 1;
 }
 
+void RobotGoAvoidance(void)
+{
+	float D_Theta,Distance;
+	
+	D_Theta=Radar.Angle-270;
+	Distance=Radar.Distance*sin(D_Theta);
+	
+	while((Distance<35)||(Distance>(-35))){
+		
+		if(Distance>0){
+			GetMotorVelocity_Self(6,0,0);
+			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
+		}
+		else{
+			GetMotorVelocity_Self(-6,0,0);
+			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
+		}
+		delay_ms(200);
+	D_Theta=Radar.Angle-270;
+	Distance=Radar.Distance*sin(D_Theta);
+	}
+	 GetMotorVelocity_Self(0,6,0);
+	 SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
+		
+	 delay_ms(1000);
+	
+	 SetPWM(0,0,0);
+		
+	
+}
+
+
 
 
 
