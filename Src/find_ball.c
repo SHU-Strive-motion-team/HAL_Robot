@@ -1,6 +1,8 @@
 #include "find_ball.h"
 
 u8 ball;
+u8 findballtime = 0;
+
 void FindBasketball(void)
 {
 	ball = 1;
@@ -22,6 +24,7 @@ void FindBall_vision(u8 ball)
 	float w=200;
 	
 	u8 time = 1;
+	u8 findballtime2 = 1;
 	
 	float theta = BasketballRobot.ThetaR,D_theta = 0;
 	
@@ -89,6 +92,12 @@ void FindBall_vision(u8 ball)
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 			
 			LCD_Show_pwm();
+			findballtime++;
+			if(findballtime>=100){
+				findballtime=0;
+				findballtime2=0;
+				break;
+			}
 		}
 		
 		//无效数据
@@ -160,12 +169,14 @@ void FindBall_vision(u8 ball)
 		}
 	}while(1);
 	
-	GetInfraredState();
-
-	SetPWM(0,0,0);
+	if(findballtime2==1){
+		GetInfraredState();
+		
+		SetPWM(0,0,0);
 	
-	Robot_armUp();
-	LCD_Show_pwm();
+		Robot_armUp();
+		LCD_Show_pwm();
+	}
 	
 }
 
@@ -355,22 +366,22 @@ void FindBall_VandR(u8 ball)
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 			LCD_Show_pwm();
 		}
-		else if(Radar.Distance>4000)
+		else if(Vision.Depth>4000)
 		{
 		
 			SetPWM(0,0,0);
 		}
-		else if((Radar.Angle< VISION_MID-30) && Radar.Distance>1000)
+		else if((Vision.X< VISION_MID-30) && Vision.Depth>1000)
 		{
 			GetMotorVelocity_Self(-8,16,0); //原来-5 10 0
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 		}
-		else if((Radar.Angle > VISION_MID+30) && Radar.Distance > 1000)
+		else if((Vision.X > VISION_MID+30) && Vision.Depth > 1000)
 		{
 			GetMotorVelocity_Self(8,16,0);//原来 5 10 0
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 		}
-		else if(Radar.Distance > 1000)
+		else if(Vision.Depth > 1000)
 		{
 			GetMotorVelocity_Self(0,30,0);
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);

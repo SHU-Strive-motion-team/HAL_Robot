@@ -559,12 +559,14 @@ void RobotGoAvoidance(void)
 			GetMotorVelocity_Self(-6,0,0);
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 		}
+	delay_ms(1000);	
+	}
 	 GetMotorVelocity_Self(0,10,0);
 	 SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 	 delay_ms(1000);
 		SetPWM(0,0,0);
 		
-	}
+	
 	
 }
 
@@ -581,8 +583,10 @@ u8 DownShotUp(void)
 		delay_ms(500);
 		SHOT = 0;
 		
+		Robot_armUp();
 		return 0;
 	}
+	Robot_armUp();
 	return 1;
 }
 

@@ -289,8 +289,141 @@ int main(void)
 						break;
 				}
 				break;
-			case 1:
-				break;//传球第一回合
+			case 1:			//传球第一回合
+				//延时10s
+			
+				RobotGoTo(0,2,210);
+				if(!DownShotUp())
+					break;
+				RobotRotate(0);
+				FindBall_VandR(qiu);
+			
+				//判断是否找到球，如果没有
+				if(0){		//没找到球
+					RobotGoTo(3,2,0);
+					FindBall_VandR(qiu);
+				}
+				
+				RobotGoTo(0,2,110);
+				DownShotUp();
+				RobotGoTo(0,1,180);
+				
+				//加视觉找框回位
+				break;
+			case 2:			//传球第二回合
+				RobotGoTo(0,2,0);
+				FindBall_VandR(qiu);
+			
+				//判断是否找到球，如果没有
+				if(0){		//没找到球
+					RobotGoTo(3,2,0);
+					FindBall_VandR(qiu);
+				}
+				
+				RobotGoTo(6,4,210);
+				DownShotUp();
+				RobotGoTo(5,2,45);
+				FindBall_VandR(qiu);
+				RobotGoTo(6,4,210);
+				DownShotUp();
+				RobotGoTo(0,1,180);
+				
+				//加视觉找框回位
+				
+				break;
+			case 3:			//传球第三回合
+				RobotGoTo(5,2,45);
+				FindBall_VandR(qiu);
+			
+				//加记录铲球的位置A
+			
+				RobotGoTo(6,4,210);
+				DownShotUp();
+			
+				//RobotGoTo(A);
+			
+				RobotGoTo(6.75,2,90);
+				//FindBall_VandR(qiu);
+				FindBall_radar();
+			
+				//RobotGoTo(A);
+			
+				RobotGoTo(6,4,210);
+				DownShotUp();
+				RobotGoTo(0,1,180);
+			
+				//加视觉找框回位
+				break;
+			case 4:			//投篮第一回合
+				RobotGoTo(4,3.75,90);
+			
+				//雷达找框
+			
+				DownShotUp();
+			
+				RobotGoTo(0,2,0);
+				FindBall_VandR(qiu);
+			
+				//判断是否找到球，如果没有
+			
+				if(0){		//没找到球
+					RobotGoTo(3,2,0);
+					FindBall_VandR(qiu);
+				}
+				
+				RobotGoTo(4,3.75,90);
+				
+				//雷达找框
+				
+				DownShotUp();
+				break;
+			case 5:			//投篮第二回合
+				RobotGoTo(5,2,45);
+				FindBall_VandR(qiu);
+			
+				//加记录铲球的位置A
+			
+				RobotGoTo(4,3.75,90);
+			
+				//雷达找框
+			
+				DownShotUp();
+			
+				//RobotGoTo(A);
+			
+				RobotGoTo(0,2,0);
+				FindBall_VandR(qiu);
+			
+				//判断是否找到球，如果没有
+			
+				if(0){		//没找到球
+					RobotGoTo(3,2,0);
+					FindBall_VandR(qiu);
+				}
+				
+				RobotGoTo(4,3.75,90);
+				
+				//雷达找框
+				
+				DownShotUp();
+				break;
+			case 6:			//投篮第三回合
+				RobotGoTo(5,2,30);
+				FindBall_VandR(qiu);
+				RobotGoTo(4,3.75,90);
+			
+				//雷达找框
+			
+				DownShotUp();
+			
+				RobotRotate(240);
+				FindBall_VandR(qiu);
+				RobotGoTo(4,3.75,90);
+			
+				//雷达找框
+			
+				DownShotUp();
+				break;
 				
 		}
 					

@@ -867,10 +867,9 @@ ARM Macro Assembler    Page 14
               00000000 
               00000000 
 Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=hal_r
-obot\startup_stm32f407xx.d -ohal_robot\startup_stm32f407xx.o -IE:\自强队-篮球组
-\2018\HAL_Robot\MDK-ARM\RTE -ID:\MDK511a\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include
- --predefine="__MICROLIB SETA 1" --list=startup_stm32f407xx.lst startup_stm32f4
-07xx.s
+obot\startup_stm32f407xx.d -ohal_robot\startup_stm32f407xx.o -IE:\HAL_Robot\MDK
+-ARM\RTE -ID:\MDK511a\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include --predefine="__MIC
+ROLIB SETA 1" --list=startup_stm32f407xx.lst startup_stm32f407xx.s
 
 
 

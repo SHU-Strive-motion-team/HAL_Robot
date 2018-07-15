@@ -43,6 +43,9 @@ struct ROBOT
 	float Y;		//机器人在坐标系中y坐标
 	//float x;		//机器人在坐标系中x坐标
 	//float y;		//机器人在坐标系中y坐标
+	
+	float PX;		//点的x坐标
+	float PY;		//点的y坐标
 	float ThetaR;	//机器人正方向和y轴夹角 弧度
 	float ThetaD;	//机器人正方向和y轴夹角 角度
 
