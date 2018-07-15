@@ -355,22 +355,22 @@ void FindBall_VandR(u8 ball)
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 			LCD_Show_pwm();
 		}
-		else if(Radar.Distance>4000)
+		else if(Vision.Depth>4000)
 		{
 		
 			SetPWM(0,0,0);
 		}
-		else if((Radar.Angle< VISION_MID-30) && Radar.Distance>1000)
+		else if((Radar.Angle< VISION_MID-30) && Vision.Depth>1000)
 		{
 			GetMotorVelocity_Self(-8,16,0); //原来-5 10 0
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 		}
-		else if((Radar.Angle > VISION_MID+30) && Radar.Distance > 1000)
+		else if((Vision.X > VISION_MID+30) && Vision.Depth > 1000)
 		{
 			GetMotorVelocity_Self(8,16,0);//原来 5 10 0
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 		}
-		else if(Radar.Distance > 1000)
+		else if(Vision.Depth > 1000)
 		{
 			GetMotorVelocity_Self(0,30,0);
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
@@ -631,7 +631,7 @@ void FindBasketry(void)
 		{
 			SetPWM(0,0,0);
 			Robot_armDown();
-				break;
+			break;
 		}
 	}while(1);
 	

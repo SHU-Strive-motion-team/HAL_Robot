@@ -553,9 +553,9 @@ u8 DownShotUp(void)
 		SHOT = 1;
 		delay_ms(500);
 		SHOT = 0;
-		
 		return 0;
 	}
+	Robot_armUp();
 	return 1;
 }
 
@@ -563,7 +563,11 @@ void RobotGoAvoidance(void)
 {
 	float D_Theta,Distance;
 	
-	D_Theta=Radar.Angle-270;
+	if(!Radar.State)
+	{
+	  SetPWM(0,0,0);
+	}
+	D_Theta=Radar.Angle-RADAR_MID ;
 	Distance=Radar.Distance*sin(D_Theta);
 	
 	while((Distance<35)||(Distance>(-35))){
