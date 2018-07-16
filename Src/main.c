@@ -82,6 +82,9 @@ int main(void)
 	//u8 chengxu = 0;				//程序选择
 	u8 flag=0;
 	u8 qiu = 0;				//找球
+	
+	u8 findballtime = 0;			//找球时调整角度次数
+	u8 i;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -291,6 +294,10 @@ int main(void)
 				break;
 			case 1:			//传球第一回合
 				//延时10s
+				for(i = 0 ;i <10;i++){
+					SetPWM(0,0,0);
+					delay_ms(1000);
+				}
 			
 				RobotGoTo(0,2,210);
 				if(!DownShotUp())
@@ -299,13 +306,16 @@ int main(void)
 				FindBall_VandR(qiu);
 			
 				//判断是否找到球，如果没有
-				if(0){		//没找到球
+				if(findballtime==0){			//没找到球
 					RobotGoTo(3,2,0);
 					FindBall_VandR(qiu);
-				}
+				}				
 				
 				RobotGoTo(0,2,110);
-				DownShotUp();
+				
+				if(!DownShotUp())
+					break;
+				
 				RobotGoTo(0,1,180);
 				
 				//加视觉找框回位
@@ -315,17 +325,23 @@ int main(void)
 				FindBall_VandR(qiu);
 			
 				//判断是否找到球，如果没有
-				if(0){		//没找到球
+				if(findballtime==0){		//没找到球
 					RobotGoTo(3,2,0);
 					FindBall_VandR(qiu);
 				}
 				
 				RobotGoTo(6,4,210);
-				DownShotUp();
+				
+				if(!DownShotUp())
+					break;
+				
 				RobotGoTo(5,2,45);
 				FindBall_VandR(qiu);
 				RobotGoTo(6,4,210);
-				DownShotUp();
+				
+				if(!DownShotUp())
+					break;
+				
 				RobotGoTo(0,1,180);
 				
 				//加视觉找框回位
@@ -335,21 +351,31 @@ int main(void)
 				RobotGoTo(5,2,45);
 				FindBall_VandR(qiu);
 			
-				//加记录铲球的位置A
-			
+				//记录铲球点A的位置
+				BasketballRobot.PX=BasketballRobot.X;
+				BasketballRobot.PY=BasketballRobot.Y;
+				
+				RobotGoTo(5,2,45);
 				RobotGoTo(6,4,210);
-				DownShotUp();
+				if(!DownShotUp())
+					break;
 			
-				//RobotGoTo(A);
+				//原路返回
+				RobotGoTo(5,2,45);
+				RobotGoTo(BasketballRobot.PX,BasketballRobot.PY,210);
 			
 				RobotGoTo(6.75,2,90);
 				//FindBall_VandR(qiu);
 				FindBall_radar();
 			
-				//RobotGoTo(A);
-			
+				//原路返回
+				RobotGoTo(BasketballRobot.PX,BasketballRobot.PY,210);
+				RobotGoTo(5,2,45);
+				
 				RobotGoTo(6,4,210);
-				DownShotUp();
+				if(!DownShotUp())
+					break;
+				
 				RobotGoTo(0,1,180);
 			
 				//加视觉找框回位

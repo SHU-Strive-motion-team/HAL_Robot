@@ -3,7 +3,7 @@
 <title>Static Call Graph - [HAL_Robot\HAL_Robot.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image HAL_Robot\HAL_Robot.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Sun Jul 15 20:25:26 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Mon Jul 16 15:32:39 2018
 <BR><P>
 <H3>Maximum Stack Usage =        600 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -592,9 +592,9 @@ Global Symbols
 <P><STRONG><a name="[7c]"></a>DownShotUp</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, control.o(i.DownShotUp))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = DownShotUp &rArr; Robot_armUp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot_armUp
+<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot_armUp
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot_armDown
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -617,10 +617,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SRAM_Init
 </UL>
 
-<P><STRONG><a name="[80]"></a>FindBall_VandR</STRONG> (Thumb, 974 bytes, Stack size 64 bytes, find_ball.o(i.FindBall_VandR))
+<P><STRONG><a name="[80]"></a>FindBall_VandR</STRONG> (Thumb, 1100 bytes, Stack size 64 bytes, find_ball.o(i.FindBall_VandR))
 <BR><BR>[Stack]<UL><LI>Max Depth = 552<LI>Call Chain = FindBall_VandR &rArr; GetMotorVelocity &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot_armUp
+<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetPWM
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot_armUp
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetInfraredState
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FindVolleyball
@@ -628,11 +630,9 @@ Global Symbols
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetVisionData
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetRadarData
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Show_pwm
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetPWM
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot_armDown
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetMotorVelocity_Self
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetMotorVelocity
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -640,10 +640,10 @@ Global Symbols
 <P><STRONG><a name="[8a]"></a>FindBall_radar</STRONG> (Thumb, 454 bytes, Stack size 48 bytes, find_ball.o(i.FindBall_radar))
 <BR><BR>[Stack]<UL><LI>Max Depth = 536<LI>Call Chain = FindBall_radar &rArr; GetMotorVelocity &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot_armUp
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetPWM
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot_armUp
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetInfraredState
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Show_pwm
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetPWM
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot_armDown
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetMotorVelocity_Self
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetMotorVelocity
@@ -1254,13 +1254,13 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = LCD_Init &rArr; LCD_Display_Dir &rArr; LCD_Scan_Dir &rArr; LCD_WR_REG
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteReg
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WR_REG
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_RD_DATA
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Display_Dir
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1552,13 +1552,13 @@ Global Symbols
 <P><STRONG><a name="[fc]"></a>RobotGoTo</STRONG> (Thumb, 208 bytes, Stack size 48 bytes, control.o(i.RobotGoTo))
 <BR><BR>[Stack]<UL><LI>Max Depth = 568<LI>Call Chain = RobotGoTo &rArr; RobotRotate &rArr; GetMotorVelocity &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RobotRotate
+<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetPWM
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RobotRotate
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetMotorVelocity
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AdjustVy
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AdjustVx
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AdjustAngleV
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1604,6 +1604,7 @@ Global Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FindBall_radar
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FindBall_VandR
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_Init
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[a]"></a>SysTick_Handler</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, stm32f4xx_it.o(i.SysTick_Handler))
@@ -1876,6 +1877,7 @@ Global Symbols
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FindBall_VandR
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DownShotUp
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[e5]"></a>delay_us</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, delay.o(i.delay_us))
@@ -1895,11 +1897,13 @@ Global Symbols
 <P><STRONG><a name="[60]"></a>fputc</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, usart.o(i.fputc))
 <BR>[Address Reference Count : 1]<UL><LI> printfa.o(i.__0printf)
 </UL>
-<P><STRONG><a name="[5c]"></a>main</STRONG> (Thumb, 1268 bytes, Stack size 32 bytes, main.o(i.main))
+<P><STRONG><a name="[5c]"></a>main</STRONG> (Thumb, 1474 bytes, Stack size 32 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 600<LI>Call Chain = main &rArr; RobotGoTo &rArr; RobotRotate &rArr; GetMotorVelocity &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_init
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetPWM
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot_armUp
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RobotRotate
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RobotGoTo

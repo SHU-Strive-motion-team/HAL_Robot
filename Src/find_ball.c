@@ -1,7 +1,8 @@
 #include "find_ball.h"
 
 u8 ball;
-u8 findballtime = 0;
+extern u8 findballtime = 0;			//找球时调整角度次数
+
 
 void FindBasketball(void)
 {
@@ -92,6 +93,8 @@ void FindBall_vision(u8 ball)
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 			
 			LCD_Show_pwm();
+			
+			//如果调整100次后仍未找到球，则退出
 			findballtime++;
 			if(findballtime>=100){
 				findballtime=0;
@@ -169,6 +172,7 @@ void FindBall_vision(u8 ball)
 		}
 	}while(1);
 	
+	//如果找到球
 	if(findballtime2==1){
 		GetInfraredState();
 		
@@ -284,6 +288,7 @@ void FindBall_VandR(u8 ball)
 	
 	float w=200;
 	u8 time = 1;
+//	u8 findballtime2 = 1;
 	float theta = BasketballRobot.ThetaR,D_theta = 0;
 	switch(ball)
 	{
@@ -365,6 +370,14 @@ void FindBall_VandR(u8 ball)
 			GetMotorVelocity(0,0,w);
 			SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 			LCD_Show_pwm();
+			findballtime++;
+			
+			//如果调整100次仍未找到球，则退出
+			if(findballtime>=100){
+				findballtime=0;
+//				findballtime2=0;
+				break;
+			}
 		}
 		else if(Vision.Depth>4000)
 		{

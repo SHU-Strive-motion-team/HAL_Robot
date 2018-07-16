@@ -5,6 +5,8 @@ struct ROBOT BasketballRobot;
 struct RADAR Radar;
 struct VISION Vision;
 
+
+
 void Control_Init(void)
 {
 	BasketballRobot.X = 0;		//机器人在坐标系中x坐标
@@ -549,7 +551,7 @@ void RobotGoAvoidance(void)
 	float D_Theta,Distance;
 //	float StraightDistance=0;
 	
-	D_Theta=Radar.Angle-270;
+	D_Theta=Radar.Angle-RADAR_MID;
 	Distance=Radar.Distance*sin(D_Theta);
 	
 	while((Distance<35)||(Distance>(-35))){
