@@ -115,6 +115,8 @@ void RobotRotate(float theta);	//自旋运动，根据误差角度，自动调节
 
 void RobotGoTo(float X_I,float Y_I,float Theta_I);	//行至指定坐标
 
+void RobotGoAvoidance(void);	//避障直行
+
 u8 DownShotUp(void);
 
 

@@ -10,8 +10,12 @@ Project File Date:  07/14/2018
 Build target 'HAL_Robot'
 compiling main.c...
 compiling control.c...
+compiling get_info.c...
+compiling find_ball.c...
+compiling lcd.c...
+compiling interrupt_callback.c...
 linking...
-Program Size: Code=31768 RO-data=18976 RW-data=64 ZI-data=2328  
+Program Size: Code=32684 RO-data=18980 RW-data=64 ZI-data=2328  
 "HAL_Robot\HAL_Robot.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -30,10 +34,65 @@ Package Vendor: ARM
 
    * Component: ARM::CMSIS:CORE:3.30.0
       Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
+de\math.h(137): error:  #118: a void function may not return a value
+      return ((__FLT(__x) >> 23) & 0xff) != 0xff;
+D:\MDK511a\ARM\ARMCC\bin\..\include\math.h(137): error:  #20: identifier "__x" is undefined
+      return ((__FLT(__x) >> 23) & 0xff) != 0xff;
+..\Src\control.c: 0 warnings, 4 errors
+compiling get_info.c...
+../Inc/find_ball.h(19): error:  #7: unrecognized token
+  void FindBasketry(void)£»             //À×´ïÕÒÀº¿ð
+../Inc/find_ball.h(19): error:  #130: expected a "{"
+  void FindBasketry(void)£»             //À×´ïÕÒÀº¿ð
+D:\MDK511a\ARM\ARMCC\bin\..\include\math.h(137): error:  #118: a void function may not return a value
+      return ((__FLT(__x) >> 23) & 0xff) != 0xff;
+D:\MDK511a\ARM\ARMCC\bin\..\include\math.h(137): error:  #20: identifier "__x" is undefined
+      return ((__FLT(__x) >> 23) & 0xff) != 0xff;
+..\Src\get_info.c: 0 warnings, 4 errors
+compiling find_ball.c...
+../Inc/find_ball.h(19): error:  #7: unrecognized token
+  void FindBasketry(void)£»             //À×´ïÕÒÀº¿ð
+../Inc/find_ball.h(19): error:  #130: expected a "{"
+  void FindBasketry(void)£»             //À×´ïÕÒÀº¿ð
+..\Src\find_ball.c(8): warning:  #12-D: parsing restarts here after previous syntax error
+  {
+..\Src\find_ball.c(9): error:  #20: identifier "ball" is undefined
+        ball = 1;
+..\Src\find_ball.c(16): error:  #20: identifier "ball" is undefined
+        ball = 3;
+..\Src\find_ball.c(98): error:  #20: identifier "findballtime" is undefined
+                        findballtime++;
+..\Src\find_ball.c(373): error:  #20: identifier "findballtime" is undefined
+                        findballtime++;
+..\Src\find_ball.c(576): error:  #247: function "FindBasketry" has already been defined
+  void FindBasketry(void){
+..\Src\find_ball.c: 1 warning, 7 errors
+compiling lcd.c...
+../Inc/find_ball.h(19): error:  #7: unrecognized token
+  void FindBasketry(void)£»             //À×´ïÕÒÀº¿ð
+../Inc/find_ball.h(19): error:  #130: expected a "{"
+  void FindBasketry(void)£»             //À×´ïÕÒÀº¿ð
+D:\MDK511a\ARM\ARMCC\bin\..\include\math.h(137): error:  #118: a void function may not return a value
+      return ((__FLT(__x) >> 23) & 0xff) != 0xff;
+D:\MDK511a\ARM\ARMCC\bin\..\include\math.h(137): error:  #20: identifier "__x" is undefined
+      return ((__FLT(__x) >> 23) & 0xff) != 0xff;
+..\Src\lcd.c: 0 warnings, 4 errors
+compiling interrupt_callback.c...
+../Inc/find_ball.h(19): error:  #7: unrecognized token
+  void FindBasketry(void)£»             //À×´ïÕÒÀº¿ð
+../Inc/find_ball.h(19): error:  #130: expected a "{"
+  void FindBasketry(void)£»             //À×´ïÕÒÀº¿ð
+D:\MDK511a\ARM\ARMCC\bin\..\include\math.h(137): error:  #118: a void function may not return a value
+      return ((__FLT(__x) >> 23) & 0xff) != 0xff;
+D:\MDK511a\ARM\ARMCC\bin\..\include\math.h(137): error:  #20: identifier "__x" is undefined
+      return ((__FLT(__x) >> 23) & 0xff) != 0xff;
+..\Src\interrupt_callback.c: 0 warnings, 4 errors
+"HAL_Robot\HAL_Robot.axf" - 27 Error(s), 1 Warning(s).
 
-   * Component: ARM::CMSIS:CORE:3.30.0
-      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
-    http://www.keil.com/pack/ARM.CMSIS.4.1.1.pack
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.4.1.1.pack
                 ARM::CMSIS:CORE:3.30.0
                 CMSIS (Cortex Microcontroller Software Interface Standard)
    * Component: CORE Version: 3.30.0
