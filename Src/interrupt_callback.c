@@ -19,7 +19,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 //		}
 		//GetPosition();
 		//printf("%f\n",BasketballRobot.ThetaD);
-		
+		SendToPc(1,BasketballRobot.X,BasketballRobot.Y,BasketballRobot.ThetaD);
 	}
 }
 
@@ -49,10 +49,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	if(huart->Instance==USART2)//如果是串口1
 	{
 		HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2, USART2_REC_LEN);
-
-		GetYaw();
-		printf("%.2f\n",BasketballRobot.ThetaD);
 		
+		//GetYaw();
+		GetPosition();
+		//printf("%.2f\n",BasketballRobot.ThetaD);
+		//SendToPc(1,BasketballRobot.X,BasketballRobot.Y,BasketballRobot.ThetaD);
+		LCD_Show_position();
 		LED0 = !LED0;
 		LED1 = !LED0;
 	}
@@ -61,7 +63,24 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		HAL_UART_Receive_IT(&huart3,(u8 *)aRxBuffer3, USART3_REC_LEN);
 		
 		GetRadarData();
+	
 		LED0 = !LED0;
 		LED1 = !LED0;
 	}
+}
+
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+	if(huart->Instance==USART2)//如果是串口1
+	{
+		//HAL_UART_AbortReceive(&huart2);
+		HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2, USART2_REC_LEN);
+		
+		
+		//printf("ErrorC ： %x  \n",huart2.ErrorCode);
+		//LCD_Show_position();
+//		LED0 = !LED0;
+//		LED1 = !LED0;
+	}
+	
 }

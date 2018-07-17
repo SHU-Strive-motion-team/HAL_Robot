@@ -1,4 +1,7 @@
 #include "control.h"
+//使用DSP， arm_sin_f32 和 arm_cos_f32
+
+
 
 struct ROBOT BasketballRobot;
 
@@ -11,9 +14,17 @@ void Control_Init(void)
 	BasketballRobot.Y = 0;		//机器人在坐标系中y坐标
 	BasketballRobot.ThetaR = 0;	//机器人正方向和y轴夹角
 	BasketballRobot.ThetaR = 0;	//机器人正方向和y轴夹角
+	
 	BasketballRobot.Vx = 0;		//机器人在坐标系x方向速度
 	BasketballRobot.Vy = 0;		//机器人在坐标系y方向速度
 	BasketballRobot.W = 0;		//机器人角速度，顺时针正方向
+	
+	BasketballRobot.xPD.Kp = 0;
+	BasketballRobot.xPD.Kd = 0;	
+	BasketballRobot.yPD.Kp = 0;
+	BasketballRobot.yPD.Kd = 0;
+	BasketballRobot.wPD.Kp = 0;
+	BasketballRobot.wPD.Kd = 0;
 	
 	BasketballRobot.w[1] = 0;		//第一个编码器实际计数
 	BasketballRobot.w[2] = 0;		//第二个编码器实际计数
@@ -35,12 +46,13 @@ void Control_Init(void)
 	
 	//开启外设
 	HAL_UART_Receive_IT(&huart1,(u8 *)aRxBuffer1,USART1_REC_LEN);
+	//HAL_NVIC_EnableIRQ(USART2_IRQn);
 	HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2,USART2_REC_LEN);
 	HAL_UART_Receive_IT(&huart3,(u8 *)aRxBuffer3,USART3_REC_LEN);	
 	
 	HAL_TIM_IC_Start_IT(&htim1,TIM_CHANNEL_1);		//开始捕获 TIM1 的通道 1，红外遥控
 	HAL_TIM_Base_Start_IT(&htim1);					//使能更新中断，红外遥控
-	//HAL_TIM_Base_Start_IT(&htim5);					//主定时器，获取姿态信息
+	HAL_TIM_Base_Start_IT(&htim5);					//主定时器，获取姿态信息
 	
 	HAL_TIM_Encoder_Start(&htim2,TIM_CHANNEL_ALL);	//开启解码器通道
 	HAL_TIM_Encoder_Start(&htim4,TIM_CHANNEL_ALL);
@@ -57,6 +69,7 @@ void Control_Init(void)
 	
 	
 	SetPWM(0,0,0);
+	shoveMotor(STOP);
 	
 //	MPU_Init();			//MPU6050初始化
 //	MPU_Init();
@@ -70,7 +83,7 @@ void Control_Init(void)
 //计算公式： V = Vmax *（占空比*100 – 50） /50
 static void Velocity2PWM(float *V)
 {
-	*V=1000 - *V;//*V+=1000;
+	*V+=1000;//*V=1000 - *V;
 	if(*V>=1900)
 		*V=1900;
 	if(*V<=100)
@@ -117,7 +130,7 @@ void GetMotorVelocity(float vx,float vy,float w)
 	//L= cos(180) 	sin(180)	-MOTOR_L
 	//   cos(-60)	sin(-60)	-MOTOR_L
 	L[0][0] =  0.5;					L[0][1] =  0.8660254037844386;		L[0][2] = -MOTOR_L;
-	L[1][0] = -1;						L[1][1] =  0;						L[1][2] = -MOTOR_L;
+	L[1][0] = -1;					L[1][1] =  0;						L[1][2] = -MOTOR_L;
 	L[2][0] =  0.5;					L[2][1] = -0.8660254037844386;		L[2][2] = -MOTOR_L;
 	//		cos(theta)	sin(theta)	0
 	//theta= -sin(theta)	cos(theta) 	0
@@ -166,7 +179,7 @@ void GetMotorVelocity_Self(float vx,float vy,float w)
 	//L= cos(180) 	sin(180)	-MOTOR_L
 	//   cos(-60)	sin(-60)	-MOTOR_L
 	L[0][0] =  0.5;					L[0][1] =  0.8660254037844386;		L[0][2] = -MOTOR_L;
-	L[1][0] = -1;						L[1][1] =  0;						L[1][2] = -MOTOR_L;
+	L[1][0] = -1;					L[1][1] =  0;						L[1][2] = -MOTOR_L;
 	L[2][0] =  0.5;					L[2][1] = -0.8660254037844386;		L[2][2] = -MOTOR_L;
 
 	//V
@@ -196,6 +209,30 @@ void GetInfraredState(void)
 	}
 }
 
+//铲球电机状态
+void shoveMotor(shovemotor t)
+{
+	u16 speed = 2000;
+	
+	if(t == STOP)
+	{
+		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,0);
+		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,0);
+	}
+	else if(t == UP)
+	{
+		//CH1高电平,铲子向上，接黑线，电机反转
+		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,speed);
+		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,0);
+	}
+	else if(t == DOWM)
+	{
+		//CH2高电平,铲子向下，接红线，电机正转
+		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,0);
+		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,speed);
+	}
+	
+}
 
 //机械臂下降
 void Robot_armDown(void)
@@ -209,17 +246,18 @@ void Robot_armDown(void)
 	
 	if(LimitSwitchDowm==1)
 	{
-		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
-		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
-
+//		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
+//		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+		shoveMotor(STOP);
 		return;
 	}
 	//EXTIX_Enable(1);
 	#ifdef ZQD_DEBUG
 	BEEP = 1;
 	#endif
-	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
-	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,W);
+//	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
+//	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,W);
+	shoveMotor(DOWM);
 	
 	LED1 = 1;
 	for(i=0;i<nms;i++)
@@ -229,8 +267,9 @@ void Robot_armDown(void)
 			for(t=0;t<0xff;t++);
 			if(LimitSwitchDowm==1)
 			{
-				__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,3970);
-				__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+//				__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,3970);
+//				__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+				shoveMotor(STOP);				
 				break;
 			}
 		}
@@ -238,8 +277,9 @@ void Robot_armDown(void)
 			if(LimitSwitchDowm == 1)
 				break;
 	}
-	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
-	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+//	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
+//	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+	shoveMotor(STOP);
 
 	#ifdef ZQD_DEBUG
 	BEEP = 0;
@@ -258,8 +298,9 @@ void Robot_armUp(void)
 	
 	if(LimitSwitchUp==1)
 	{
-		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
-		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+//		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
+//		__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+		shoveMotor(STOP);
 		return ;
 	}
 	//EXTIX_Enable(0);
@@ -267,8 +308,9 @@ void Robot_armUp(void)
 	BEEP = 1;
 	#endif
 	
-	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,W);
-	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+//	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,W);
+//	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+	shoveMotor(UP);
 	for(i=0;i<nms;i++)
 	{
 		if(LimitSwitchUp == 1)
@@ -276,8 +318,9 @@ void Robot_armUp(void)
 			for(t=0;t<0xff;t++);
 			if(LimitSwitchUp == 1)
 			{
-				__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
-				__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+//				__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
+//				__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);
+				shoveMotor(STOP);
 				break;
 			}
 		}
@@ -285,18 +328,34 @@ void Robot_armUp(void)
 			if(LimitSwitchUp == 1)
 				break;
 	}
-	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
-	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);	
+//	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,MOTOR_STATIC_1);
+//	__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,MOTOR_STATIC_2);	
+	shoveMotor(STOP);
 
 	#ifdef ZQD_DEBUG
 	BEEP = 0;
 	#endif
 }
 
+//PD调整角速度
+static float adjustAngleV_PD(float D_Theta)
+{
+	float w;
+}
+//PD调整Y轴速度
+static float adjustVy_PD(float D_Theta)
+{
+	
+}
+//PD调整X轴速度
+static float adjustVx_PD(float D_Theta)
+{
+	
+}
 
 
 //根据偏差大小调整角速度
-static float AdjustAngleV(float D_Theta)
+static float adjustAngleV(float D_Theta)
 {
 	float Vw = 0;
 	
@@ -357,7 +416,7 @@ static float AdjustAngleV(float D_Theta)
 
 
 //根据偏差大小调整Y轴速度
-static float AdjustVy(float D_Y)
+static float adjustVy(float D_Y)
 {
 	float sy;
 	
@@ -408,7 +467,7 @@ static float AdjustVy(float D_Y)
 	
 
 //根据偏差大小调整X轴速度
-static float AdjustVx(float D_X)
+static float adjustVx(float D_X)
 {
 	float sx;
 	
@@ -489,7 +548,7 @@ void RobotRotate(float theta)
 
 	//D_Theta = theta-BasketballRobot.ThetaD;
 	D_Theta = theta-0;
-	Vw = AdjustAngleV(D_Theta);
+	Vw = adjustAngleV(D_Theta);
 	
 	
 	while(D_Theta>1||D_Theta < -1)
@@ -500,7 +559,7 @@ void RobotRotate(float theta)
 		
 		D_Theta = theta-BasketballRobot.ThetaD;
 		
-		Vw = AdjustAngleV(D_Theta);
+		Vw = adjustAngleV(D_Theta);
 	}
 	SetPWM(0,0,0);
 
@@ -522,11 +581,11 @@ void RobotGoTo(float X_I,float Y_I,float Theta_I)
 	
 	while(fabs(D_Y) > 0.05f || fabs(D_X) > 0.05f)
 	{
-		sy = AdjustVy(D_Y);		
+		sy = adjustVy(D_Y);		
 		
-		sx = AdjustVx(D_X);
+		sx = adjustVx(D_X);
 		
-		Vw = AdjustAngleV(D_Theta)/2;
+		Vw = adjustAngleV(D_Theta)/2;
 		
 		GetMotorVelocity(sx*12,sy*100,Vw);
 		
@@ -556,6 +615,8 @@ u8 DownShotUp(void)
 		
 		return 0;
 	}
+	
+	Robot_armUp();
 	return 1;
 }
 

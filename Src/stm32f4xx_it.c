@@ -253,14 +253,19 @@ void USART1_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
-	
+//	u8 res;
+//	if(huart2.RxState == HAL_UART_STATE_READY)
+//		res = (uint8_t)(huart2.Instance->DR & (uint8_t)0x00FF);
+//	//printf("%x   ",(huart2.Instance->DR & 0x01FF));
 	//接收到第一个数据但是不是0X55，表示数据接收错误重新接收
 	if(huart2.RxXferCount < USART2_REC_LEN && aRxBuffer2[0]!=0x55)
 	{
 		HAL_UART_AbortReceive(&huart2);
 		HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2, USART2_REC_LEN);	
 	}
-
+	//printf("%x   ",(huart2.Instance->DR & 0x01FF));
+	//myUSART2_IRQHandler();
+	
   /* USER CODE END USART2_IRQn 0 */
   HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
@@ -276,7 +281,7 @@ void USART3_IRQHandler(void)
   /* USER CODE BEGIN USART3_IRQn 0 */
 	
 	//接收到第一个数据但是不是0X55，表示数据接收错误重新接收
-	if(huart3.RxXferCount < USART3_REC_LEN && aRxBuffer3[0]!=0x55)
+	if(huart3.RxXferCount < USART3_REC_LEN && aRxBuffer3[0]!='@')
 	{
 		HAL_UART_AbortReceive(&huart3);
 		HAL_UART_Receive_IT(&huart3,(u8 *)aRxBuffer3, USART3_REC_LEN);	

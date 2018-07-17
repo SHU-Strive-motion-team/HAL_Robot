@@ -34,6 +34,7 @@
 "hal_robot\mpu6050.o"
 "hal_robot\interrupt_callback.o"
 "hal_robot\system_stm32f4xx.o"
+"..\Drivers\CMSIS\Lib\ARM\arm_cortexM4lf_math.lib"
 --library_type=microlib --strict --scatter "HAL_Robot\HAL_Robot.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

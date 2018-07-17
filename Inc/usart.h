@@ -48,7 +48,7 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "control.h"
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart1;
@@ -60,7 +60,7 @@ extern UART_HandleTypeDef huart3;
 	 
 #define USART1_REC_LEN  		9	//定义最大接收字节数 11 	 
 #define USART2_REC_LEN  		11 	//定义最大接收字节数 11
-#define USART3_REC_LEN  		11 	//定义最大接收字节数 11
+#define USART3_REC_LEN  		10 	//定义最大接收字节数 11
 	 
 /* USER CODE END Private defines */
 
@@ -90,11 +90,14 @@ extern uint8_t aRxBuffer2[USART2_REC_LEN];
 extern uint8_t aRxBuffer3[USART3_REC_LEN ];
 
 
+void SendToPc(u8 cmd,u16 data1,u16 data2,u16 data3);
+
 //自定义串口中断调用函数，HAL库太麻烦
 void myUSART1_IRQHandler(void);
 
 void myUSART3_IRQHandler(void);
 
+void myUSART2_IRQHandler(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

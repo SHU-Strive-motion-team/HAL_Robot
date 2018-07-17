@@ -10,7 +10,7 @@ MPU_Init()函数为Z轴校准
 
 ********************************/
 
-void MPU6_Init()
+void IMU_Init()
 {
 	//角度初始化指令，0XFF,0XAA,0X01,0X04,0X00
 	u8 cmd[5] = {0XFF,0XAA,0X01,0X04,0X00};

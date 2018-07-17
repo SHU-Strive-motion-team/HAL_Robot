@@ -170,13 +170,12 @@ void GetVisionData(void)
 //激光处理数据
 void GetRadarData(void)
 {
-	
+	#if 0
+{
 	if(USART3_RX_STA&0x8000)
 	{					   
 		//得到此次接收到的数据长度
-		//len=USART1_RX_STA&0x3fff;
-
-		
+		//len=USART1_RX_STA&0x3fff;		
 		//距离信息
 		if(USART3_RX_BUF[0]!=' ')
 			Radar.Distance=(USART3_RX_BUF[0]-'0')*1000;
@@ -222,5 +221,34 @@ void GetRadarData(void)
 		Radar.State = 0;
 	else
 		Radar.State = 1;
+}
+	#else
+	u8 sum = 0,i;
+	u32 a,d;
+	
+	if(aRxBuffer3[0]=='@'&&aRxBuffer3[1]=='^'&&aRxBuffer3[2]=='r')
+	{
+		sum =0;
+		for(i = 0;i <9;i++)
+			sum += aRxBuffer2[i];
+	}
+	if(sum == aRxBuffer3[9])
+	{
+		a = (aRxBuffer3[3]<<8)|aRxBuffer3[4];
+		d = (aRxBuffer3[5]<<8)|aRxBuffer3[6];
+	}
+	if(a<240 || a >300||d>4000||d<10) //原来&&
+		Radar.State = 0;
+	else
+	{
+		Radar.Angle = a;
+		Radar.Distance = d;
+		Radar.State = 1;
+	}
+	
+	
+	#endif
+	
+	
 }
 

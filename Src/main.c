@@ -98,6 +98,7 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 	delay_init(168);  
+		
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -110,22 +111,24 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM4_Init();
   MX_TIM1_Init();
-  MX_FSMC_Init();
+  //MX_FSMC_Init();
   MX_TIM12_Init();
   MX_TIM5_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+	//IMU_Init();
 	LCD_Init();
 	LCD_Show_Title();
+	//delay_ms(1000);
 	Control_Init();
-	MPU6_Init();
+	IMU_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	LED0 =1;
-	LED1 =1;
-
+	LED1 =0;
+SendToPc(1,0,0,0);
   while (1)
   {
 	    key = Remote_Scan();

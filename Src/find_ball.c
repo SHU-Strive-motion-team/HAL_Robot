@@ -180,18 +180,25 @@ void FindBall_radar(void)
 	SetPWM(0,0,0);
 	LCD_Show_pwm();
 	do{
-		while(receive3 != 1);
+		//while(receive3 != 1);
 		
 		if(!Radar.State)
 		{	
 			
 			SetPWM(0,0,0);
-		//	continue;
+			continue;
 		}
 		LED0 = !LED0;
 
-		if(Radar.Distance < 10)
-			continue;
+		LCD_ShowString(30+200,460,200,16,16,"Radar:rad");	
+		LCD_ShowNum(30+200+48+8+45,460,Radar.Angle,4,16);		
+		LCD_ShowString(30+200,480,200,16,16,"Radar:length");	
+		LCD_ShowNum(30+200+48+8+45,480,Radar.Distance,4,16);	
+		
+		Radar.State = 0;
+		
+//		if(Radar.Distance < 10)
+//			continue;
 		if(Radar.Distance > 3000)
 		{			
 			D_theta = BasketballRobot.ThetaR - theta;
