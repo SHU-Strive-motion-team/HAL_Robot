@@ -69,7 +69,7 @@ void GetPosition(void)
 	
 	float theta_inv[2][2]; //Ω«∂»æÿ’Û
 	
-	GetYaw();
+	//GetYaw();
 	ReadEncoder();
 	
 	BasketballRobot.LastTheta = BasketballRobot.ThetaR;
@@ -85,8 +85,8 @@ void GetPosition(void)
 	l2 = BasketballRobot.w[1] - nW;
 	l3 = BasketballRobot.w[2] - nW;
 	
-	nX = l1;
-	nY = (-l2 + l3)/1.7320508f;
+	nX = -l1/20000;
+	nY = -(-l2 + l3)/1.7320508f/22400;
 	
 	//nX = 
 	

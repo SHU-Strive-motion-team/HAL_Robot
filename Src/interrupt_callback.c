@@ -1,6 +1,6 @@
 #include "interrupt_callback.h"
 
-
+u8 count;
 //定时器更新（溢出）中断回调函数
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -17,9 +17,21 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 //			HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2, USART2_REC_LEN);	
 //			UartRxTimEnble &= ~0x02;
 //		}
+		//printf(" 1  %d   \r\n",htim5.Instance->CNT);
+//			printf(" 2  %d    \r\n",htim5.Instance->CNT);
 		//GetPosition();
+		//printf("  %f    %f \r\n",BasketballRobot.X,BasketballRobot.Y);
+		if(count%2==0)
+			LCD_Show_position();
+		if(count%2)
+			LCD_Show_lcj();
+		count++;
+		
+		//delay_ms(1);
+		//printf(" 3  %d    \r\n",htim5.Instance->CNT);
 		//printf("%f\n",BasketballRobot.ThetaD);
-		SendToPc(1,BasketballRobot.X,BasketballRobot.Y,BasketballRobot.ThetaD);
+		//SendToPc(1,BasketballRobot.X*1000+14000,BasketballRobot.Y*1000+14000,BasketballRobot.ThetaD);
+		//count++;
 	}
 }
 
@@ -50,11 +62,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	{
 		HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2, USART2_REC_LEN);
 		
-		//GetYaw();
+		GetYaw();
 		GetPosition();
 		//printf("%.2f\n",BasketballRobot.ThetaD);
 		//SendToPc(1,BasketballRobot.X,BasketballRobot.Y,BasketballRobot.ThetaD);
-		LCD_Show_position();
+		//LCD_Show_position();
 		LED0 = !LED0;
 		LED1 = !LED0;
 	}

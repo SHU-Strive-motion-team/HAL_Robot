@@ -111,7 +111,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM4_Init();
   MX_TIM1_Init();
-  //MX_FSMC_Init();
+  MX_FSMC_Init();
   MX_TIM12_Init();
   MX_TIM5_Init();
   MX_USART1_UART_Init();
@@ -128,7 +128,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	LED0 =1;
 	LED1 =0;
-SendToPc(1,0,0,0);
+	//SendToPc(1,0,0,0);
   while (1)
   {
 	    key = Remote_Scan();
