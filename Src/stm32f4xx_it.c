@@ -253,22 +253,37 @@ void USART1_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
-//	u8 res;
-//	if(huart2.RxState == HAL_UART_STATE_READY)
-//		res = (uint8_t)(huart2.Instance->DR & (uint8_t)0x00FF);
-//	//printf("%x   ",(huart2.Instance->DR & 0x01FF));
-	//接收到第一个数据但是不是0X55，表示数据接收错误重新接收
-	if(huart2.RxXferCount < USART2_REC_LEN && aRxBuffer2[0]!=0x55)
-	{
-		HAL_UART_AbortReceive(&huart2);
-		HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2, USART2_REC_LEN);	
-	}
+	u32 timeout=0;
+//	if(huart2.RxXferCount < USART2_REC_LEN && aRxBuffer2[0]!=0x55)
+//	{
+//		HAL_UART_AbortReceive(&huart2);
+//		HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2, USART2_REC_LEN);	
+//	}
 	//printf("%x   ",(huart2.Instance->DR & 0x01FF));
 	//myUSART2_IRQHandler();
 	
+//	receiveIMUData();
+//	GetYaw();
+//	printf("yaw: %.2f   tim : %d \r\n    ",BasketballRobot.ThetaD, htim5.Instance->CNT);
+//	LED0 = !LED0;
+//		LED1 = !LED0;
   /* USER CODE END USART2_IRQn 0 */
   HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
+	timeout=0;
+    while (HAL_UART_GetState(&huart2) != HAL_UART_STATE_READY)//等待就绪
+	{
+	 timeout++;////超时处理
+     if(timeout>HAL_MAX_DELAY) break;		
+	
+	}
+     
+	timeout=0;
+	while(HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2,1) != HAL_OK)//一次处理完成之后，重新开启中断并设置RxXferCount为1
+	{
+	 timeout++; //超时处理
+	 if(timeout>HAL_MAX_DELAY) break;	
+	}
 	
   /* USER CODE END USART2_IRQn 1 */
 }

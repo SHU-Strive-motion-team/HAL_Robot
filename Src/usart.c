@@ -48,22 +48,22 @@
 //bit15，	接收完成标志
 //bit14，	接收到0x0d
 //bit13~0，	接收到的有效字节数目
-u8 USART1_RX_BUF[USART_REC_LEN];     //接收缓冲,最大USART_REC_LEN个字节.
+vu8 USART1_RX_BUF[USART_REC_LEN];     //接收缓冲,最大USART_REC_LEN个字节.
 u16 USART1_RX_STA=0;       			//接收状态标记	
 
-u8 USART2_RX_BUF[USART_REC_LEN];	//接收缓冲,最大USART_REC_LEN个字节.
+vu8 USART2_RX_BUF[USART_REC_LEN];	//接收缓冲,最大USART_REC_LEN个字节.
 u16 USART2_RX_STA = 0;			//接收状态标记
 
-u8 USART3_RX_BUF[USART_REC_LEN];	//接收缓冲,最大USART_REC_LEN个字节.
+vu8 USART3_RX_BUF[USART_REC_LEN];	//接收缓冲,最大USART_REC_LEN个字节.
 u16 USART3_RX_STA = 0;			//接收状态标记
 
 uint8_t receive = 0;
 uint8_t receive2 = 0;		//接收完成标志
 uint8_t receive3 = 0;
 
-uint8_t aRxBuffer1[USART1_REC_LEN];//HAL库使用的串口接收缓冲
-uint8_t aRxBuffer2[USART2_REC_LEN];//HAL库使用的串口接收缓冲
-uint8_t aRxBuffer3[USART3_REC_LEN ];//HAL库使用的串口接收缓冲
+vu8 aRxBuffer1[USART1_REC_LEN];//HAL库使用的串口接收缓冲
+vu8 aRxBuffer2[USART2_REC_LEN];//HAL库使用的串口接收缓冲
+vu8 aRxBuffer3[USART3_REC_LEN ];//HAL库使用的串口接收缓冲
 
 	
 
@@ -98,7 +98,7 @@ void MX_USART2_UART_Init(void)
 {
 
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 9600;
+  huart2.Init.BaudRate = 115200;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -155,7 +155,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
     /* USART1 interrupt Init */
-    HAL_NVIC_SetPriority(USART1_IRQn, 2, 0);
+    HAL_NVIC_SetPriority(USART1_IRQn, 2, 3);
     HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
@@ -181,7 +181,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
     /* USART2 interrupt Init */
-    HAL_NVIC_SetPriority(USART2_IRQn, 1, 1);
+    HAL_NVIC_SetPriority(USART2_IRQn, 2, 1);
     HAL_NVIC_EnableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspInit 1 */
 	//HAL_NVIC_DisableIRQ(USART2_IRQn);

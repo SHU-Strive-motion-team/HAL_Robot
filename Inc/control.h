@@ -15,6 +15,9 @@
 //#include "timer.h"
 #include <math.h>
 #include "arm_math.h"
+#include "myiic.h"
+#include "mpu9250.h"
+#include "MahonyAHRS.h"
 
 
 #define ENCODER_FD 	4.0f		//编码器分频
@@ -71,6 +74,10 @@ struct ROBOT
 //接收雷达数据，极坐标
 struct RADAR
 {
+	uint16_t RX_STA;
+	
+	uint8_t  RX_BUF[20];
+	
 	uint32_t Distance;  //距离
 	
 	uint32_t Angle;	//角度

@@ -45,9 +45,9 @@ void Control_Init(void)
 	Vision.X = 0;
 	
 	//开启外设
-	HAL_UART_Receive_IT(&huart1,(u8 *)aRxBuffer1,USART1_REC_LEN);
+	HAL_UART_Receive_IT(&huart1,(u8 *)aRxBuffer1,1);
 	//HAL_NVIC_EnableIRQ(USART2_IRQn);
-	HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2,USART2_REC_LEN);
+	HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2,USART2_REC_LEN );
 	HAL_UART_Receive_IT(&huart3,(u8 *)aRxBuffer3,USART3_REC_LEN);	
 	
 	HAL_TIM_IC_Start_IT(&htim1,TIM_CHANNEL_1);		//开始捕获 TIM1 的通道 1，红外遥控
@@ -71,6 +71,17 @@ void Control_Init(void)
 	SetPWM(0,0,0);
 	shoveMotor(STOP);
 	
+//	Mahony_Init(200);
+//	IIC_SCL = 1;
+//	IIC_SDA = 1;
+//	
+//	while(MPU9250_Init())
+//	{
+//		delay_ms(20);
+//		LED0=!LED0;//DS0闪烁 
+//	
+//	}
+//	
 //	MPU_Init();			//MPU6050初始化
 //	MPU_Init();
 //	MPU_Init();	
