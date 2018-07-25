@@ -58,7 +58,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		LED0 = !LED0;
 		LED1 = !LED0;
 	}
-	if(huart->Instance==USART2)//如果是串口1
+	if(huart->Instance==USART2)//如果是串口2
 	{
 		HAL_UART_Receive_IT(&huart2,(u8 *)aRxBuffer2, USART2_REC_LEN);
 		
@@ -70,7 +70,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		LED0 = !LED0;
 		LED1 = !LED0;
 	}
-	if(huart->Instance==USART3)//如果是串口1
+	if(huart->Instance==USART3)//如果是串口3
 	{
 		HAL_UART_Receive_IT(&huart3,(u8 *)aRxBuffer3, USART3_REC_LEN);
 		
