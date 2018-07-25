@@ -20,40 +20,73 @@ void ReadEncoder(void)
 	BasketballRobot.w[0] = nEncoder1;  
 }
 
-void GetYaw(void)
+
+void receiveIMUData(void)
+{
+	uint8_t sum=0,i=0,res;
+	
+//	if((__HAL_UART_GET_FLAG(&huart2,UART_FLAG_RXNE) != RESET))  //接收中断
+//	{
+//		HAL_UART_Receive(&huart2,&res,1,1000);//(USART1->DR);	//读取接收到的数据
+		
+		if((USART2_RX_STA&0x8000)==0)//接收未完成
+		{
+			USART2_RX_BUF[USART2_RX_STA&0X3FFF] = aRxBuffer2[0];
+			
+			if((USART2_RX_STA&0X3FFF)==0&&USART2_RX_BUF[0]!=0x55) return;     //第 0 号数据不是帧头，跳过 
+			if((USART2_RX_STA&0X3FFF)==1&&USART2_RX_BUF[1]!=0x53) return;     //第 2 号数据不是角度，跳过 
+			
+			USART2_RX_STA++;
+			
+			if((USART2_RX_STA&0X3FFF) == 11)
+			{
+				for(i=0;i<10;i++)
+					sum += USART2_RX_BUF[i];
+				
+				if(sum == USART2_RX_BUF[10])
+					USART2_RX_STA|=0x8000;				
+			}
+		}
+		
+//	} 		
+}
+
+u8 GetYaw(void)
 {
 	uint16_t temp;
-	if(aRxBuffer2[0]==0x55&&aRxBuffer2[1]==0x53)
-	{
-		u8  sum,i;
-		sum =0;
-		for(i = 0;i <10;i++)
-			sum += aRxBuffer2[i];
+	
+	//receiveIMUData();
 		
-		printf("%x\r\n",sum);
-		//偏航角（z 轴） Yaw=((YawH<<8)|YawL)/32768*180(°)
-		if(sum == aRxBuffer2[10])
-		{				
-			temp = aRxBuffer2[7];
-			BasketballRobot.ThetaD = ((float)((temp<<8)|aRxBuffer2[6]))/32768*180;
-//			receive2 = 0;
-//			USART2_RX_STA=0;
-			
-			BasketballRobot.ThetaR = BasketballRobot.ThetaD * PI / 180 + BasketballRobot.theta_offset;
-			
-			while(BasketballRobot.ThetaR < 0)
+	if(USART2_RX_STA&0x8000)	
+	{
+		//(Re_buf [7]<<8| Re_buf [6]))/32768.0*180; 
+		BasketballRobot.ThetaD = ((float)((USART2_RX_BUF[7]<<8)|USART2_RX_BUF[6]))/32768*180;
+		
+		BasketballRobot.ThetaR = BasketballRobot.ThetaD * PI / 180;
+		
+		while(BasketballRobot.ThetaR < 0)
 				BasketballRobot.ThetaR  = BasketballRobot.ThetaR + PI + PI;
 			
-			while (BasketballRobot.ThetaR > 2 * PI)
-				BasketballRobot.ThetaR = BasketballRobot.ThetaR - PI - PI;
+		while (BasketballRobot.ThetaR > 2 * PI)
+			BasketballRobot.ThetaR = BasketballRobot.ThetaR - PI - PI;
 			
-			while(BasketballRobot.ThetaD < 0)
-				BasketballRobot.ThetaD  = BasketballRobot.ThetaD + 360;
+		while(BasketballRobot.ThetaD < 0)
+			BasketballRobot.ThetaD  = BasketballRobot.ThetaD + 360;
 			
-			while (BasketballRobot.ThetaD >360)
-				BasketballRobot.ThetaD = BasketballRobot.ThetaD - 360;
-		}
+		while (BasketballRobot.ThetaD >360)
+			BasketballRobot.ThetaD = BasketballRobot.ThetaD - 360;
+		
+		USART2_RX_STA=0;
+		
+		printf("yaw: %.2f   tim : %d \r\n    ",BasketballRobot.ThetaD, htim5.Instance->CNT);
+		LED0 = !LED0;
+		LED1 = !LED0;
+		
+		SendToPc(1,BasketballRobot.X,BasketballRobot.Y,BasketballRobot.ThetaD);
+		return 1;
 	}
+	else 
+		return 0;
 }
 
 
@@ -93,7 +126,7 @@ void GetPosition(void)
 	BasketballRobot.X += nX*theta_inv[0][0]+nY*theta_inv[0][1];
 	BasketballRobot.Y += nX*theta_inv[1][0]+nY*theta_inv[1][1];
 	
-
+	
 }
 
 //视觉数据处理

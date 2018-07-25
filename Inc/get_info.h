@@ -10,7 +10,10 @@
 
 
 void ReadEncoder(void);
-void GetYaw(void);
+
+void receiveIMUData(void);
+u8 GetYaw(void);
+
 void GetPosition(void);		//坐标转换
 
 void GetVisionData(void);		//视觉数据处理
