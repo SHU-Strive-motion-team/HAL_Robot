@@ -610,6 +610,53 @@ void RobotGoTo(float X_I, float Y_I, float Theta_I)
 	RobotRotate(Theta_I);
 }
 
+//避障直行
+//直行1m
+void RobotGoAvoidance(void)
+{
+	float D_Theta,Distance,D_X;
+	float standard=35,sx=0;
+//	float StraightDistance=0;
+	
+	D_Theta=Radar.Angle-RADAR_MID;
+	Distance=Radar.Distance*sin(D_Theta);
+	D_X = Distance-standard;
+	
+	while(fabs(D_X) > 0.05f){
+		
+	sx = adjustVx(D_X);
+		
+	GetMotorVelocity_Self(sx*12,0,0);
+		
+	SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
+		
+	D_Theta=Radar.Angle-RADAR_MID;
+	Distance=Radar.Distance*sin(D_Theta);
+	D_X = Distance-standard;
+		
+	}
+	
+	BasketballRobot.PX=BasketballRobot.X;
+	BasketballRobot.PY=BasketballRobot.Y;
+	
+/*
+	while(StraightDistance<=1000){
+		
+		StraightDistance=sqrt(pow(BasketballRobot.PX-BasketballRobot.X,2)+pow(BasketballRobot.PY-BasketballRobot.Y,2));
+		
+		GetMotorVelocity_Self(0,10,0);
+		SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
+		delay_ms(1000);
+	}
+*/
+	
+	RobotGoTo(BasketballRobot.PX+700,BasketballRobot.PY+500,60);
+	SetPWM(0,0,0);
+		
+	
+	
+}
+
 u8 DownShotUp(void)
 {
 	Robot_armDown();

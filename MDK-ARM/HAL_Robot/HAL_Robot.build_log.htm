@@ -7,6 +7,69 @@ E:\HAL_Robot\MDK-ARM\HAL_Robot.uvprojx
 Project File Date:  07/26/2018
 
 <h2>Output:</h2>
+Build target 'HAL_Robot'
+compiling stm32f4xx_it.c...
+compiling usart.c...
+../Src/usart.c(456): warning:  #177-D: variable "CheckSum_3" was declared but never referenced
+        uint8_t  CheckSum_3 = 0;
+../Src/usart.c: 1 warning, 0 errors
+compiling main.c...
+compiling control.c...
+..\Src\control.c(262): warning:  #177-D: variable "W" was declared but never referenced
+        u16 W = 2700;
+..\Src\control.c(314): warning:  #177-D: variable "W" was declared but never referenced
+        u16 W = 2700;
+..\Src\control.c(363): warning:  #940-D: missing return statement at end of non-void function "adjustAngleV_PD"
+  }
+..\Src\control.c(362): warning:  #177-D: variable "w" was declared but never referenced
+        float w;
+..\Src\control.c(367): warning:  #940-D: missing return statement at end of non-void function "adjustVy_PD"
+  }
+..\Src\control.c(371): warning:  #940-D: missing return statement at end of non-void function "adjustVx_PD"
+  }
+..\Src\control.c(360): warning:  #177-D: function "adjustAngleV_PD" was declared but never referenced
+  static float adjustAngleV_PD(float D_Theta)
+..\Src\control.c(365): warning:  #177-D: function "adjustVy_PD" was declared but never referenced
+  static float adjustVy_PD(float D_Theta)
+..\Src\control.c(369): warning:  #177-D: function "adjustVx_PD" was declared but never referenced
+  static float adjustVx_PD(float D_Theta)
+..\Src\control.c: 9 warnings, 0 errors
+compiling get_info.c...
+compiling find_ball.c...
+compiling lcd.c...
+compiling mpu6050.c...
+compiling interrupt_callback.c...
+compiling mpu9250.c...
+linking...
+Program Size: Code=45788 RO-data=6820 RW-data=68 ZI-data=2572  
+"HAL_Robot\HAL_Robot.axf" - 0 Error(s), 10 Warning(s).
 </pre>
 </body>
 </html>
+Src\control.c(360): warning:  #177-D: function "adjustAngleV_PD" was declared but never referenced
+  static float adjustAngleV_PD(float D_Theta)
+..\Src\control.c(365): warning:  #177-D: function "adjustVy_PD" was declared but never referenced
+  static float adjustVy_PD(float D_Theta)
+..\Src\control.c(369): warning:  #177-D: function "adjustVx_PD" was declared but never referenced
+  static float adjustVx_PD(float D_Theta)
+..\Src\control.c: 9 warnings, 0 errors
+compiling remote.c...
+compiling get_info.c...
+compiling find_ball.c...
+..\Src\find_ball.c(767): error:  #20: identifier "findballtime2" is undefined
+        if(findballtime2==1){
+..\Src\find_ball.c: 0 warnings, 1 error
+compiling lcd.c...
+compiling mpu6050.c...
+compiling interrupt_callback.c...
+compiling MahonyAHRS.c...
+..\Src\MahonyAHRS.c(114): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                halfwx = 2.0f*bx*(0.5 - q2q2 - q3q3) + 2*bz*(q1q3 - q0q2);
+..\Src\MahonyAHRS.c(116): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                halfwz = 2.0f*bx*(q0q2 + q1q3) + 2*bz*(0.5 - q1q1 - q2q2);
+..\Src\MahonyAHRS.c: 2 warnings, 0 errors
+compiling mpu9250.c...
+compiling myiic.c...
+compiling system_stm32f4xx.c...
+"HAL_Robot\HAL_Robot.axf" - 1 Error(s), 12 Warning(s).
+Target not created
