@@ -52,3 +52,8 @@ dkms.conf
 *.htm
 *.lnp
 *.htm
+*.PC
+*.uvoptx
+*.bak
+*.lnp
+*.htm
