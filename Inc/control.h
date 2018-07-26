@@ -88,6 +88,10 @@ struct RADAR
 //接收视觉数据
 struct VISION
 {
+	uint16_t RX_STA;
+	
+	uint8_t  RX_BUF[20];
+	
 	uint32_t Depth;	//深度，纵轴
 	
 	uint32_t X;		//X位置，横轴

@@ -290,6 +290,8 @@ int main(void)
 						else
 							LED0 = 1;
 						break;
+					case 5:
+						GetRadarData();
 				}
 				break;
 		}

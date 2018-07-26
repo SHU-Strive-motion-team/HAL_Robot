@@ -1,6 +1,6 @@
 #include "interrupt_callback.h"
 #include "control.h"
-u8 count;
+u8 count = 0;
 //定时器更新（溢出）中断回调函数
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -22,12 +22,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		//GetPosition();
 		//printf("  %f    %f \r\n",BasketballRobot.X,BasketballRobot.Y);
 //		
-		if(count%4==0)
+		if(count++==1)
 			LCD_Show_position();
 		
-		if(count%4 == 2)
+		if(count == 2)
 			LCD_Show_lcj();
-		count++;
+		
 		
 		
 //		printf("1： %d\r\n",htim5.Instance->CNT);
@@ -65,17 +65,18 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	if(huart->Instance==USART1)//如果是串口1
 	{
-		HAL_UART_Receive_IT(&huart1,(u8 *)aRxBuffer1, USART1_REC_LEN);
 		
-		GetVisionData();
+		//GetVisionData();
+		//receiveRadarData();
 		LED0 = !LED0;
 		LED1 = !LED0;
 	}
 	if(huart->Instance==USART2)//如果是串口2
 	{
-		receiveIMUData();
-		GetYaw();
-		//GetPosition();
+		//receiveIMUData();
+		//GetYaw();
+		GetPosition();
+		//receiveRadarData();
 //		if(count%4==0)
 //			LCD_Show_position();
 //		
@@ -88,12 +89,13 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	}
 	if(huart->Instance==USART3)//如果是串口3
 	{
-		HAL_UART_Receive_IT(&huart3,(u8 *)aRxBuffer3, USART3_REC_LEN);
 		
-		GetRadarData();
+		receiveRadarData();
+		
+		//GetRadarData();
 	
-		LED0 = !LED0;
-		LED1 = !LED0;
+		//LED0 = !LED0;
+//		LED1 = !LED0;
 	}
 }
 
