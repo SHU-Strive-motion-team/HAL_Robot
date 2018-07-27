@@ -626,7 +626,7 @@ void RobotGoAvoidance(void)
 		
 	sx = adjustVx(D_X);
 		
-	GetMotorVelocity_Self(sx*12,0,0);
+	GetMotorVelocity_Self(sx*3,0,0);
 		
 	SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 		
@@ -636,8 +636,9 @@ void RobotGoAvoidance(void)
 		
 	}
 	
-	BasketballRobot.PX=BasketballRobot.X;
-	BasketballRobot.PY=BasketballRobot.Y;
+	
+//	BasketballRobot.PX=BasketballRobot.X;
+//	BasketballRobot.PY=BasketballRobot.Y;
 	
 /*
 	while(StraightDistance<=1000){
@@ -649,8 +650,10 @@ void RobotGoAvoidance(void)
 		delay_ms(1000);
 	}
 */
-	
-	RobotGoTo(BasketballRobot.PX+700,BasketballRobot.PY+500,60);
+	GetMotorVelocity_Self(30,0,0);	
+	SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
+	delay_ms(500);
+	//RobotGoTo(BasketballRobot.PX+700,BasketballRobot.PY+500,60);
 	SetPWM(0,0,0);
 		
 	
