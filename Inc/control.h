@@ -38,6 +38,12 @@
 #define DIS_RADAR 2500	//篮筐雷达定位距离
 #define DIS_VISION 280	//篮筐视觉定位距离
 
+#define Origin_X 0		//视觉屏幕原点x坐标，现假设
+#define Origin_Y 0		//视觉屏幕原点y坐标，待修改
+
+#define Correction_X -0.3	//球场坐标修正值x
+#define Correction_Y 0.3	//球场坐标修正值y
+
 //PD参数
 typedef struct
 {

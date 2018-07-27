@@ -313,7 +313,7 @@ int main(void)
 							delay_ms(1000);
 						}
 			
-						RobotGoTo(0,2,-110);
+						RobotGoTo(0-Correction_X,2+Correction_Y,-110);
 						if(!DownShotUp())
 							break;
 						RobotRotate(0);
@@ -321,16 +321,16 @@ int main(void)
 			
 						//判断是否找到球，如果没有
 						if(findballtime==0){			//没找到球
-							RobotGoTo(-3,2,0);
+							RobotGoTo(-3-Correction_X,2+Correction_Y,0);
 							FindBall_VandR(qiu);
 						}				
 				
-						RobotGoTo(0,2,-110);
+						RobotGoTo(0-Correction_X,2+Correction_Y,-110);
 					
 						if(!DownShotUp())
 							break;
 				
-						RobotGoTo(0,1,-180);
+						RobotGoTo(0,1+Correction_Y,-180);
 				
 						//加视觉找框回位
 						break;
@@ -341,7 +341,7 @@ int main(void)
 							delay_ms(1000);
 						}
 			
-						RobotGoTo(0,2,110);
+						RobotGoTo(0+Correction_X,2+Correction_Y,110);
 						if(!DownShotUp())
 							break;
 						RobotRotate(0);
@@ -350,16 +350,16 @@ int main(void)
 			
 						//判断是否找到球，如果没有
 						if(findballtime==0){			//没找到球
-							RobotGoTo(3,2,0);
+							RobotGoTo(3+Correction_X,2+Correction_Y,0);
 							FindBall_VandR(qiu);
 						}				
 				
-						RobotGoTo(0,2,110);
+						RobotGoTo(0+Correction_X,2+Correction_Y,110);
 					
 						if(!DownShotUp())
 							break;
 				
-						RobotGoTo(0,1,180);
+						RobotGoTo(0,1+Correction_Y,180);
 				
 						//加视觉找框回位
 						break;
@@ -369,56 +369,56 @@ int main(void)
 				switch(changdi)
 				{
 					case 0:			//上场
-						RobotGoTo(0,2,0);
+						RobotGoTo(0-Correction_X,2+Correction_Y,0);
 						FindBall_VandR(qiu);
 			
 						//判断是否找到球，如果没有
 						if(findballtime==0){		//没找到球
-							RobotGoTo(-3,2,0);
+							RobotGoTo(-3-Correction_X,2+Correction_Y,0);
 							FindBall_VandR(qiu);
 						}
 				
-						RobotGoTo(-6,2,0);
-						RobotGoTo(-6,4,-210);
+						RobotGoTo(-6-Correction_X,2+Correction_Y,0);
+						RobotGoTo(-6-Correction_X,4+Correction_Y,-210);
 				
 						if(!DownShotUp())
 							break;
 				
-						RobotGoTo(-5,2,-45);
+						RobotGoTo(-5-Correction_X,2+Correction_Y,-45);
 						FindBall_VandR(qiu);
-						RobotGoTo(-6,4,-210);
+						RobotGoTo(-6-Correction_X,4+Correction_Y,-210);
 				
 						if(!DownShotUp())
 							break;
 				
-						RobotGoTo(0,1,-180);
+						RobotGoTo(0,1+Correction_Y,-180);
 				
 						//加视觉找框回位
 						break;
 					case 1:			//下场
-						RobotGoTo(0,2,0);
+						RobotGoTo(0+Correction_X,2+Correction_Y,0);
 						FindBall_VandR(qiu);
 			
 						//判断是否找到球，如果没有
 						if(findballtime==0){		//没找到球
-							RobotGoTo(3,2,0);
+							RobotGoTo(3+Correction_X,2+Correction_Y,0);
 							FindBall_VandR(qiu);
 						}
 				
-						RobotGoTo(6,2,0);
-						RobotGoTo(6,4,210);
+						RobotGoTo(6+Correction_X,2+Correction_Y,0);
+						RobotGoTo(6+Correction_X,4+Correction_Y,210);
 				
 						if(!DownShotUp())
 							break;
 				
-						RobotGoTo(5,2,45);
+						RobotGoTo(5+Correction_X,2+Correction_Y,45);
 						FindBall_VandR(qiu);
-						RobotGoTo(6,4,210);
+						RobotGoTo(6+Correction_X,4+Correction_Y,210);
 				
 						if(!DownShotUp())
 							break;
 				
-						RobotGoTo(0,1,180);
+						RobotGoTo(0+Correction_X,1+Correction_Y,180);
 				
 						//加视觉找框回位
 						break;
@@ -428,68 +428,68 @@ int main(void)
 				switch(changdi)
 				{
 					case 0:			//上场
-						RobotGoTo(-5,2,-45);
+						RobotGoTo(-5-Correction_X,2+Correction_Y,-45);
 						FindBall_VandR(qiu);
 				
 						//记录铲球点A的位置
 						BasketballRobot.PX=BasketballRobot.X;
 						BasketballRobot.PY=BasketballRobot.Y;
 				
-						RobotGoTo(-5,2,-45);
-						RobotGoTo(-6,4,-210);
+						RobotGoTo(-5-Correction_X,2+Correction_Y,-45);
+						RobotGoTo(-6-Correction_X,4+Correction_Y,-210);
 						if(!DownShotUp())
 							break;
 				
 						//原路返回
-						RobotGoTo(-5,2,-45);
-						RobotGoTo(BasketballRobot.PX,BasketballRobot.PY,-210);
+						RobotGoTo(-5-Correction_X,2+Correction_Y,-45);
+						RobotGoTo(BasketballRobot.PX-Correction_X,BasketballRobot.PY+Correction_Y,-210);
 			
-						RobotGoTo(-6.75,2,-90);
+						RobotGoTo(-6.75-Correction_X,2+Correction_Y,-90);
 						//FindBall_VandR(qiu);
 						FindBall_radar();
 			
 						//原路返回
-						RobotGoTo(BasketballRobot.PX,BasketballRobot.PY,-210);
-						RobotGoTo(-5,2,-45);
+						RobotGoTo(BasketballRobot.PX-Correction_X,BasketballRobot.PY+Correction_Y,-210);
+						RobotGoTo(-5-Correction_X,2+Correction_Y,-45);
 				
-						RobotGoTo(-6,4,-210);
+						RobotGoTo(-6-Correction_X,4+Correction_Y,-210);
 						if(!DownShotUp())
 							break;
 				
-						RobotGoTo(0,1,-180);
+						RobotGoTo(0-Correction_X,1+Correction_Y,-180);
 			
 						//加视觉找框回位
 						break;
 					case 1:			//下场
-						RobotGoTo(5,2,45);
+						RobotGoTo(5+Correction_X,2+Correction_Y,45);
 						FindBall_VandR(qiu);
 				
 						//记录铲球点A的位置
 						BasketballRobot.PX=BasketballRobot.X;
 						BasketballRobot.PY=BasketballRobot.Y;
 				
-						RobotGoTo(5,2,45);
-						RobotGoTo(6,4,210);
+						RobotGoTo(5+Correction_X,2+Correction_Y,45);
+						RobotGoTo(6+Correction_X,4+Correction_Y,210);
 						if(!DownShotUp())
 							break;
 				
 						//原路返回
-						RobotGoTo(5,2,45);
-						RobotGoTo(BasketballRobot.PX,BasketballRobot.PY,210);
+						RobotGoTo(5+Correction_X,2+Correction_Y,45);
+						RobotGoTo(BasketballRobot.PX+Correction_X,BasketballRobot.PY+Correction_Y,210);
 			
-						RobotGoTo(6.75,2,90);
+						RobotGoTo(6.75+Correction_X,2+Correction_Y,90);
 						//FindBall_VandR(qiu);
 						FindBall_radar();
 			
 						//原路返回
-						RobotGoTo(BasketballRobot.PX,BasketballRobot.PY,210);
-						RobotGoTo(5,2,45);
+						RobotGoTo(BasketballRobot.PX+Correction_X,BasketballRobot.PY+Correction_Y,210);
+						RobotGoTo(5+Correction_X,2+Correction_Y,45);
 				
-						RobotGoTo(6,4,210);
+						RobotGoTo(6+Correction_X,4+Correction_Y,210);
 						if(!DownShotUp())
 							break;
 				
-						RobotGoTo(0,1,180);
+						RobotGoTo(0+Correction_X,1+Correction_Y,180);
 			
 						//加视觉找框回位
 						break;
@@ -499,7 +499,7 @@ int main(void)
 				switch(changdi)
 				{
 					case 0:			//上场
-						RobotGoTo(-4,3.75,-90);
+						RobotGoTo(-4-Correction_X,3.7+Correction_Y,-90);
 			
 						//雷达找框
 						FindBasketry();
@@ -507,16 +507,16 @@ int main(void)
 						if(!DownShotUp())
 							break;
 			
-						RobotGoTo(0,2,0);
+						RobotGoTo(0-Correction_X,2+Correction_Y,0);
 						FindBall_VandR(qiu);
 			
 						//判断是否找到球，如果没有			
 						if(findballtime==0){		//没找到球
-							RobotGoTo(-3,2,0);
+							RobotGoTo(-3-Correction_X,2+Correction_Y,0);
 							FindBall_VandR(qiu);
 						}
 				
-						RobotGoTo(-9,3.75,-90);
+						RobotGoTo(-9-Correction_X,3.7+Correction_Y,-90);
 				
 						//雷达找框
 						FindBasketry();
@@ -525,7 +525,7 @@ int main(void)
 							break;
 						break;
 					case 1:			//下场
-						RobotGoTo(4,3.75,90);
+						RobotGoTo(4+Correction_X,3.7+Correction_Y,90);
 			
 						//雷达找框
 						FindBasketry();
@@ -533,16 +533,16 @@ int main(void)
 						if(!DownShotUp())
 							break;
 			
-						RobotGoTo(0,2,0);
+						RobotGoTo(0+Correction_X,2+Correction_Y,0);
 						FindBall_VandR(qiu);
 			
 						//判断是否找到球，如果没有			
 						if(findballtime==0){		//没找到球
-							RobotGoTo(3,2,0);
+							RobotGoTo(3+Correction_X,2+Correction_Y,0);
 							FindBall_VandR(qiu);
 						}
 				
-						RobotGoTo(9,3.75,90);
+						RobotGoTo(9+Correction_X,3.7+Correction_Y,90);
 				
 						//雷达找框
 						FindBasketry();
@@ -556,14 +556,14 @@ int main(void)
 				switch(changdi)
 				{
 					case 0:			//上场
-						RobotGoTo(-5,2,-45);
+						RobotGoTo(-5-Correction_X,2+Correction_Y,-45);
 						FindBall_VandR(qiu);
 			
 						//记录铲球点A的位置
 						BasketballRobot.PX=BasketballRobot.X;
 						BasketballRobot.PY=BasketballRobot.Y;
 			
-						RobotGoTo(-9,3.75,-90);
+						RobotGoTo(-9-Correction_X,3.7+Correction_Y,-90);
 			
 						//雷达找框
 						FindBasketry();
@@ -572,19 +572,19 @@ int main(void)
 							break;
 			
 						//RobotGoTo(A);
-						RobotGoTo(BasketballRobot.PX,BasketballRobot.PY,-90);
+						RobotGoTo(BasketballRobot.PX-Correction_X,BasketballRobot.PY+Correction_Y,-90);
 			
-						RobotGoTo(0,2,0);
+						RobotGoTo(0-Correction_X,2+Correction_Y,0);
 						FindBall_VandR(qiu);
 			
 						//判断是否找到球，如果没有			
 						if(findballtime==0){		//没找到球
-							RobotGoTo(-3,2,0);
+							RobotGoTo(-3-Correction_X,2+Correction_Y,0);
 							FindBall_VandR(qiu);
 						}
 				
-						RobotGoTo(BasketballRobot.PX,BasketballRobot.PY,0);
-						RobotGoTo(-9,3.75,-90);
+						RobotGoTo(BasketballRobot.PX-Correction_X,BasketballRobot.PY+Correction_Y,0);
+						RobotGoTo(-9-Correction_X,3.7+Correction_Y,-90);
 				
 						//雷达找框
 						FindBasketry();
@@ -593,14 +593,14 @@ int main(void)
 							break;
 						break;
 					case 1:			//下场
-						RobotGoTo(5,2,45);
+						RobotGoTo(5+Correction_X,2+Correction_Y,45);
 						FindBall_VandR(qiu);
 			
 						//记录铲球点A的位置
 						BasketballRobot.PX=BasketballRobot.X;
 						BasketballRobot.PY=BasketballRobot.Y;
 			
-						RobotGoTo(9,3.75,90);
+						RobotGoTo(9+Correction_X,3.7+Correction_Y,90);
 			
 						//雷达找框
 						FindBasketry();
@@ -609,19 +609,19 @@ int main(void)
 							break;
 			
 						//RobotGoTo(A);
-						RobotGoTo(BasketballRobot.PX,BasketballRobot.PY,90);
+						RobotGoTo(BasketballRobot.PX+Correction_X,BasketballRobot.PY+Correction_Y,90);
 			
-						RobotGoTo(0,2,0);
+						RobotGoTo(0+Correction_X,2+Correction_Y,0);
 						FindBall_VandR(qiu);
 			
 						//判断是否找到球，如果没有			
 						if(findballtime==0){		//没找到球
-							RobotGoTo(3,2,0);
+							RobotGoTo(3+Correction_X,2+Correction_Y,0);
 							FindBall_VandR(qiu);
 						}
 				
-						RobotGoTo(BasketballRobot.PX,BasketballRobot.PY,0);
-						RobotGoTo(9,3.75,90);
+						RobotGoTo(BasketballRobot.PX+Correction_X,BasketballRobot.PY+Correction_Y,0);
+						RobotGoTo(9+Correction_X,3.7+Correction_Y,90);
 				
 						//雷达找框
 						FindBasketry();
@@ -635,11 +635,11 @@ int main(void)
 				switch(changdi)
 				{
 					case 0:			//上场
-						RobotGoTo(-5,2,-30);
+						RobotGoTo(-5-Correction_X,2-Correction_Y,-30);
 						FindBall_VandR(qiu);
 			
 						RobotRotate(-90);
-						RobotGoTo(-9,3.75,-90);
+						RobotGoTo(-9-Correction_X,3.7+Correction_Y,-90);
 			
 						//雷达找框
 						FindBasketry();
@@ -649,7 +649,7 @@ int main(void)
 			
 						RobotRotate(-240);
 						FindBall_VandR(qiu);
-						RobotGoTo(-9,3.75,-90);
+						RobotGoTo(-9-Correction_X,3.7+Correction_Y,-90);
 			
 						//雷达找框
 						FindBasketry();
@@ -658,11 +658,11 @@ int main(void)
 							break;
 						break;
 					case 1:			//下场
-						RobotGoTo(5,2,30);
+						RobotGoTo(5+Correction_X,2+Correction_Y,30);
 						FindBall_VandR(qiu);
 			
 						RobotRotate(90);
-						RobotGoTo(9,3.75,90);
+						RobotGoTo(9+Correction_X,3.7+Correction_Y,90);
 			
 						//雷达找框
 						FindBasketry();
@@ -672,7 +672,7 @@ int main(void)
 			
 						RobotRotate(240);
 						FindBall_VandR(qiu);
-						RobotGoTo(9,3.75,90);
+						RobotGoTo(9+Correction_X,3.7+Correction_Y,90);
 			
 						//雷达找框
 						FindBasketry();
