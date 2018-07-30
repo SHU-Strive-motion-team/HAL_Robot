@@ -396,36 +396,51 @@ static float adjustAngleV(float D_Theta)
 		Vw = D_Theta;
 	}
 	else
-		//Vw=Vw;
+		Vw=Vw;
 
 		//小于60°大于30°匀速
 		//实际PWM为100
-		if (D_Theta < 60)
+
+		if (D_Theta < 120)
 	{
 		if (Vw > 0)
-			Vw = 1000;
+			Vw = 240;
 		else
-			Vw = -1000;
+			Vw = -240;
 	}
 
+	if (D_Theta < 60)
+	{
+		if (Vw > 30)
+			Vw = 80;
+		else
+			Vw = -80;
+	}
 	//小于30°大于5°
 	if (D_Theta < 30)
 	{
 		if (Vw > 30)
-			Vw = 200;
+			Vw = 40;
 		else
-			Vw = -200;
+			Vw = -40;
+	}
+	if (D_Theta < 15)
+	{
+		if (Vw > 0)
+			Vw = 20;
+		else
+			Vw = -20;
 	}
 	//小于5°
 	if (D_Theta < 5)
 	{
 		if (Vw > 0)
-			Vw = 40;
+			Vw = 10;
 		else
-			Vw = -40;
+			Vw = -10;
 	}
-	if (D_Theta == 0)
-		Vw = 0;
+//	if (D_Theta <1)
+//		Vw = 0;
 
 	return Vw;
 }
@@ -557,11 +572,11 @@ void RobotRotate(float theta)
 	float D_Theta;
 	float Vw = 0; //W大于0 逆时针
 
-	//D_Theta = theta-BasketballRobot.ThetaD;
-	D_Theta = theta - 0;
+	D_Theta = theta-BasketballRobot.ThetaD;
+//	D_Theta = theta - 0;
 	Vw = adjustAngleV(D_Theta);
 
-	while (D_Theta > 1 || D_Theta < -1)
+	while (D_Theta > 5 || D_Theta < -5)
 	{
 		GetMotorVelocity(0, 0, Vw);
 
@@ -573,8 +588,8 @@ void RobotRotate(float theta)
 	}
 	SetPWM(0, 0, 0);
 
-	while (BasketballRobot.W)
-		;
+//	while (BasketballRobot.W)
+//		;
 }
 
 //行至指定坐标
