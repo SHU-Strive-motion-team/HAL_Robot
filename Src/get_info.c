@@ -1,5 +1,8 @@
 #include "get_info.h"
 
+
+
+
 void ReadEncoder(void)
 {
 	int16_t nEncoder1, nEncoder2, nEncoder3;
@@ -44,13 +47,15 @@ void receiveIMUData(void)
 
 			if (sum == USART2_RX_BUF[10])
 				USART2_RX_STA |= 0x8000;
+			else
+				USART2_RX_STA = 0;
 		}
 	}
 }
 
 u8 GetYaw(void)
 {
-	receiveIMUData();
+	//receiveIMUData();
 
 	if (USART2_RX_STA & 0x8000)
 	{
@@ -73,11 +78,11 @@ u8 GetYaw(void)
 
 		USART2_RX_STA = 0;
 
-		printf("yaw: %.2f   tim : %d \r\n    ", BasketballRobot.ThetaD, htim5.Instance->CNT);
+		//printf("yaw: %.2f   tim : %d \r\n    ", BasketballRobot.ThetaD, htim5.Instance->CNT);
 		LED0 = !LED0;
 		LED1 = !LED0;
 
-		SendToPc(1, BasketballRobot.X, BasketballRobot.Y, BasketballRobot.ThetaD);
+		//SendToPc(1, BasketballRobot.X, BasketballRobot.Y, BasketballRobot.ThetaD);
 		return 1;
 	}
 	else
@@ -95,7 +100,9 @@ void GetPosition(void)
 
 	float theta_inv[2][2]; //Ω«∂»æÿ’Û
 
-	GetYaw();
+	if(GetYaw())
+	{
+	
 	ReadEncoder();
 
 	BasketballRobot.LastTheta = BasketballRobot.ThetaR;
@@ -119,6 +126,7 @@ void GetPosition(void)
 
 	BasketballRobot.X += nX * theta_inv[0][0] + nY * theta_inv[0][1];
 	BasketballRobot.Y += nX * theta_inv[1][0] + nY * theta_inv[1][1];
+}
 }
 
 void receiveVisionData(void)

@@ -36,3 +36,5 @@ MDK-ARM/HAL_Robot.uvoptx
 MDK-ARM/HAL_Robot.uvprojx
 MDK-ARM/HAL_Robot.uvprojx
 *.uvprojx
+*.uvprojx
+*.uvoptx
