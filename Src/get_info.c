@@ -193,6 +193,8 @@ void receiveVisionData(void)
 				sum += Vision.RX_BUF[i];
 			if (sum == Vision.RX_BUF[9])
 				Vision.RX_STA |= 0x8000;
+			else
+				Vision.RX_STA = 0;
 		}
 	}
 #endif
@@ -341,6 +343,8 @@ void receiveRadarData(void)
 				sum += Radar.RX_BUF[i];
 			if (sum == Radar.RX_BUF[9])
 				Radar.RX_STA |= 0x8000;
+			else
+				Radar.RX_STA = 0;
 		}
 	}
 
