@@ -569,22 +569,31 @@ static float adjustVx(float D_X)
 //自旋运动，根据误差角度，自动调节
 void RobotRotate(float theta)
 {
-	float D_Theta;
+	float D_Theta,D_Theta_Last=0;
 	float Vw = 0; //W大于0 逆时针
 
 	D_Theta = theta-BasketballRobot.ThetaD;
 //	D_Theta = theta - 0;
-	Vw = adjustAngleV(D_Theta);
+	D_Theta_Last = D_Theta;
+	
+	Vw = 5*D_Theta;
+		if(Vw > 300)
+		Vw=300;
 
 	while (D_Theta > 5 || D_Theta < -5)
 	{
-		GetMotorVelocity(0, 0, Vw);
+		D_Theta_Last = D_Theta;
+		
 
-		SetPWM(BasketballRobot.Velocity[0], BasketballRobot.Velocity[1], BasketballRobot.Velocity[2]);
+		SetPWM(Vw, Vw, Vw);
 
 		D_Theta = theta - BasketballRobot.ThetaD;
-
-		Vw = adjustAngleV(D_Theta);
+		
+		
+		Vw = 5*D_Theta;
+		if(Vw > 300)
+		Vw=300;
+//		Vw = adjustAngleV(D_Theta);
 	}
 	SetPWM(0, 0, 0);
 
