@@ -35,10 +35,10 @@
 #define MOTOR_STATIC_1 4000		//TIM9 CH1 PE5
 #define MOTOR_STATIC_2 4000  	//TIM9 CH2 PE6
 
-#define RADAR_MID 268	//雷达定位中心
-#define VISION_MID 320	//视觉定位中心
-#define DIS_RADAR 2500	//篮筐雷达定位距离
-#define DIS_VISION 280	//篮筐视觉定位距离
+#define RADAR_MID 	268	//雷达定位中心
+#define VISION_MID 	320	//视觉定位中心
+#define DIS_RADAR 	2500	//篮筐雷达定位距离
+#define DIS_VISION 	280	//篮筐视觉定位距离
 
 #define Origin_X 0		//视觉屏幕原点x坐标，现假设
 #define Origin_Y 0		//视觉屏幕原点y坐标，待修改
@@ -74,11 +74,12 @@ struct ROBOT
 	PD wPD;
 	
 	float w[3];				//编码器速度
-	u32 encoderCount[3];	//编码器总计数
+	int64_t encoderCount[3];	//编码器总计数
 	
 	float Velocity[3];	//轮子的速度
+	
 	float LastTheta;	//上一时刻，机器人theta角
-	float theta_offset;	//角度偏差矫正
+	float theta_offset[3];	//角度偏差矫正
 };
 
 //接收雷达数据，极坐标

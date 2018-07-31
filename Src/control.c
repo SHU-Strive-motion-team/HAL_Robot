@@ -33,7 +33,10 @@ void Control_Init(void)
 	BasketballRobot.encoderCount[0] = 0; //第三个编码器总计数
 
 	BasketballRobot.LastTheta = 0;	//上一时刻，机器人theta角
-	BasketballRobot.theta_offset = 0; //角度偏差矫正
+	
+	BasketballRobot.theta_offset[0] = 0; //角度偏差矫正
+	BasketballRobot.theta_offset[1] = 0; //角度偏差矫正
+	BasketballRobot.theta_offset[2] = 0; //角度偏差矫正
 
 	//雷达、视觉数据清空
 	Radar.Angle = 0;

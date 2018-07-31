@@ -670,7 +670,7 @@ int main(void)
 						FindBall_VandR(qiu);
 			
 						RobotRotate(90);
-						RobotGoTo(9+Correction_X,3.7+Correction_Y,90);
+						RobotGoTo(9.0f+Correction_X,3.7+Correction_Y,90);
 			
 						//À×´ïÕÒ¿ò
 						FindBasketry();
