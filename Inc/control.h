@@ -152,8 +152,8 @@ static float adjustVy(float D_Y);			//根据偏差大小调整Y轴速度
 static float adjustVx(float D_X);			//根据偏差大小调整X轴速度
 
 static float adjustAngleV_PD(float D_Theta);	//根据偏差大小调整角速度
-static float adjustVy_PD(float D_Y);			//根据偏差大小调整Y轴速度
-static float adjustVx_PD(float D_X);			//根据偏差大小调整X轴速度
+static float adjustVy_PD(float D_Y);			//根据偏差大小调整Y轴速度P调节
+static float adjustVx_PD(float D_X);			//根据偏差大小调整X轴速度P调节
 
 
 void RobotRotate(float theta);	//自旋运动，根据误差角度，自动调节

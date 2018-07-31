@@ -270,7 +270,7 @@ void Robot_armDown(void)
 	//原来板子：3000
 	//V1.0：1750
 	u16 i, t;
-	u16 W = 2700;
+//	u16 W = 2700;
 	u16 nms = 2000;
 
 	if (LimitSwitchDowm == 1)
@@ -322,7 +322,7 @@ void Robot_armUp(void)
 	//原来板子：1960
 	//V1.0:550
 	u16 i, t;
-	u16 W = 2700;
+//	u16 W = 2700;
 	u16 nms = 2000;
 
 	if (LimitSwitchUp == 1)
@@ -370,15 +370,43 @@ void Robot_armUp(void)
 //PD调整角速度
 static float adjustAngleV_PD(float D_Theta)
 {
-	float w;
+		float Vw;
+		if(D_Theta>0&&(D_Theta<180))  
+		{
+			Vw=D_Theta*5;
+		}
+		else if(D_Theta>0&&(D_Theta>=180)) 
+		{
+			D_Theta = 2*180-D_Theta;
+			Vw=-D_Theta*5;
+		}
+		else if(D_Theta<0&&(D_Theta>=-180)) 
+		{
+			Vw=D_Theta*5;
+		}
+		else if(D_Theta<0&&(D_Theta<-180)) 
+		{
+			D_Theta = 2*180+D_Theta;
+			Vw=D_Theta*5;
+		}
+		
+		if(Vw > 300)
+		Vw=300;
+		
+		return Vw;
 }
 //PD调整Y轴速度
-static float adjustVy_PD(float D_Theta)
+static float adjustVy_PD(float D_Y)
 {
+	
+	
+	
 }
 //PD调整X轴速度
-static float adjustVx_PD(float D_Theta)
+static float adjustVx_PD(float D_X)
 {
+	
+	
 }
 
 //根据偏差大小调整角速度
@@ -586,23 +614,13 @@ void RobotRotate(float theta)
 	D_Theta = theta-BasketballRobot.ThetaD;
 //	D_Theta = theta - 0;
 	
-	
-	Vw = 5*D_Theta;
-		if(Vw > 300)
-		Vw=300;
+	adjustAngleV_PD(D_Theta);
 
-	while (D_Theta > 5 || D_Theta < -5)
+	while (D_Theta > 4 || D_Theta < -4)
 	{
-		
-
 		SetPWM(Vw, Vw, Vw);
 
-		D_Theta = theta - BasketballRobot.ThetaD;
-		
-		
-		Vw = 5*D_Theta;
-		if(Vw > 300)
-		Vw=300;
+		adjustAngleV_PD(D_Theta);
 //		Vw = adjustAngleV(D_Theta);
 	}
 	SetPWM(0, 0, 0);
@@ -625,13 +643,13 @@ void RobotGoTo(float X_I, float Y_I, float Theta_I)
 
 	while (fabs(D_Y) > 0.05f || fabs(D_X) > 0.05f)
 	{
-		sy = adjustVy(D_Y);
+		sy = D_Y*200;							//sy = adjustVy(D_Y);
 
-		sx = adjustVx(D_X);
+		sx = D_X*200;
 
-		Vw = adjustAngleV(D_Theta) / 2;
+		Vw = adjustAngleV_PD(D_Theta);
 
-		GetMotorVelocity(sx * 12, sy * 100, Vw);
+		GetMotorVelocity(sx , sy , Vw);
 
 		SetPWM(BasketballRobot.Velocity[0], BasketballRobot.Velocity[1], BasketballRobot.Velocity[2]);
 
@@ -658,9 +676,9 @@ void RobotGoAvoidance(void)
 	
 	while(fabs(D_X) > 0.05f){
 	
-	sx = adjustVx(D_X);
+	sx = D_X*200;
 		
-	GetMotorVelocity_Self(sx*3,0,0);
+	GetMotorVelocity_Self(sx,0,0);
 		
 	SetPWM(BasketballRobot.Velocity[0],BasketballRobot.Velocity[1],BasketballRobot.Velocity[2]);
 		
@@ -703,7 +721,7 @@ void RobotGoAvoidance(void)
 void RobotGoToAvoid(float X_I, float Y_I, float Theta_I)
 {
 	float D_Theta, D_X, D_Y, Vw = 0, sx, sy = 0;
-	float Offest_theta,angle,standard=35,Distance;
+	float Offest_theta,angle,standard=350,Distance;
 
 	
 	D_X = X_I - BasketballRobot.X;
@@ -721,13 +739,13 @@ void RobotGoToAvoid(float X_I, float Y_I, float Theta_I)
 	while (fabs(D_Y) > 0.05f || fabs(D_X) > 0.05f)
 	{
 			if(!GetRadarData()){
-			sy = adjustVy(D_Y);
+			sy = (D_Y)*200;
 
-			sx = adjustVx(D_X);
+			sx = 200*(D_X);
 
-			Vw = adjustAngleV(D_Theta);
+			Vw = adjustAngleV_PD(D_Theta);
 
-			GetMotorVelocity(sx * 12, sy * 100, Vw);
+			GetMotorVelocity(sx , sy , Vw);
 
 			SetPWM(BasketballRobot.Velocity[0], BasketballRobot.Velocity[1], BasketballRobot.Velocity[2]);
 
@@ -741,7 +759,7 @@ void RobotGoToAvoid(float X_I, float Y_I, float Theta_I)
 				Distance=Radar.Distance*sin(Offest_theta);
 				if(Offest_theta>0){
 					
-				while(Distance>35&&(!GetRadarData()))
+				while(Distance>350&&(!GetRadarData()))
 				{
 					GetMotorVelocity_Self(Distance-standard,0,0);
 				}
@@ -749,7 +767,7 @@ void RobotGoToAvoid(float X_I, float Y_I, float Theta_I)
 				}
 				else
 				{
-					while(Distance>35&&(!GetRadarData()))
+					while(Distance>350&&(!GetRadarData()))
 				  {
 					GetMotorVelocity_Self(standard-Distance,0,0);
 			   	}

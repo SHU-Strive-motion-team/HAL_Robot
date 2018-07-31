@@ -310,12 +310,12 @@ int main(void)
 //						LED0 = !LED0;
 //						break;
 					case 1:
-						RobotGoTo(0,2,-110);
-						RobotRotate(0);
-					  RobotGoTo(3,2,0);
-						RobotGoTo(3,3.5,0);
-						RobotGoTo(0,2,-110);
-						RobotGoTo(0,0,0);
+						RobotGoTo(0,2,0);
+//						RobotRotate(0);
+//					  RobotGoTo(3,2,0);
+//						RobotGoTo(3,3.5,0);
+//						RobotGoTo(0,2,-110);
+//						RobotGoTo(0,0,0);
 						break;
 				}
 				break;
@@ -329,15 +329,15 @@ int main(void)
 							delay_ms(1000);
 						}
 			
-						RobotGoTo(0-Correction_X,2+Correction_Y,-110);
+						RobotGoTo(0.0-Correction_X,2.0+Correction_Y,-110);
 						if(!DownShotUp())
 							break;
-						RobotRotate(0);
+						RobotRotate(0.0);
 						FindBall_VandR(qiu);
 			
 						//判断是否找到球，如果没有
 						if(findballtime==0){			//没找到球
-							RobotGoTo(-3-Correction_X,2+Correction_Y,0);
+							RobotGoTo(-3.0-Correction_X,2.0+Correction_Y,0);
 							FindBall_VandR(qiu);
 						}				
 				
