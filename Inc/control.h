@@ -43,8 +43,8 @@
 #define Origin_X 0		//视觉屏幕原点x坐标，现假设
 #define Origin_Y 0		//视觉屏幕原点y坐标，待修改
 
-#define Correction_X -0.3	//球场坐标修正值x
-#define Correction_Y 0.3	//球场坐标修正值y
+#define Correction_X -0.3f	//球场坐标修正值x
+#define Correction_Y 0.3f	//球场坐标修正值y
 
 //PD参数
 typedef struct
@@ -73,8 +73,8 @@ struct ROBOT
 	PD yPD;
 	PD wPD;
 	
-	float w[3];		//编码器的实际计数
-	float v[3];		//编码器所得速度
+	float w[3];				//编码器速度
+	u32 encoderCount[3];	//编码器总计数
 	
 	float Velocity[3];	//轮子的速度
 	float LastTheta;	//上一时刻，机器人theta角

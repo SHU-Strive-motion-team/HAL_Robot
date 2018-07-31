@@ -1218,7 +1218,7 @@ void LCD_Show_v(void)
 
 	for(i = 0; i <= 3; i++)
 	{
-		tem = BasketballRobot.v[i];
+		tem = BasketballRobot.encoderCount[i];
 		if(tem < 0){
 			tem = -tem;
 			switch(i)
@@ -1250,23 +1250,23 @@ void LCD_Show_v(void)
 			}
 		}
 		integer = (u32)tem;
-		decimal = (u32)((tem-integer)*1000);
+		//decimal = (u32)((tem-integer)*1000);
 		
 		switch (i){
 			case 0:
-				LCD_ShowxNum(90,200,integer,3,16,0);
-				LCD_ShowChar(90+25,200,'.',16,0);
-				LCD_ShowxNum(90+36,200,decimal,3,16,0);
+				LCD_ShowxNum(90,200,integer,7,16,0);
+//				LCD_ShowChar(90+25,200,'.',16,0);
+//				LCD_ShowxNum(90+36,200,decimal,3,16,0);
 				break;
 			case 1:
-				LCD_ShowxNum(90,220,integer,3,16,0);
-				LCD_ShowChar(90+25,220,'.',16,0);
-				LCD_ShowxNum(90+36,220,decimal,3,16,0);
+				LCD_ShowxNum(90,220,integer,7,16,0);
+//				LCD_ShowChar(90+25,220,'.',16,0);
+//				LCD_ShowxNum(90+36,220,decimal,3,16,0);
 				break;
 			case 2:
-				LCD_ShowxNum(90,240,integer,3,16,0);
-				LCD_ShowChar(90+25,240,'.',16,0);
-				LCD_ShowxNum(90+36,240,decimal,3,16,0);
+				LCD_ShowxNum(90,240,integer,7,16,0);
+//				LCD_ShowChar(90+25,240,'.',16,0);
+//				LCD_ShowxNum(90+36,240,decimal,3,16,0);
 				break;
 		}
 	}

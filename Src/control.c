@@ -24,13 +24,13 @@ void Control_Init(void)
 	BasketballRobot.wPD.Kp = 0;
 	BasketballRobot.wPD.Kd = 0;
 
-	BasketballRobot.w[1] = 0; //第一个编码器实际计数
-	BasketballRobot.w[2] = 0; //第二个编码器实际计数
-	BasketballRobot.w[0] = 0; //第三个编码器实际计数
+	BasketballRobot.w[1] = 0; //第一个编码器速度
+	BasketballRobot.w[2] = 0; //第二个编码器速度
+	BasketballRobot.w[0] = 0; //第三个编码器速度
 
-	BasketballRobot.v[1] = 0; //第一个编码器所得速度
-	BasketballRobot.v[2] = 0; //第二个编码器所得速度
-	BasketballRobot.v[0] = 0; //第三个编码器所得速度
+	BasketballRobot.encoderCount[1] = 0; //第一个编编码器总计数
+	BasketballRobot.encoderCount[2] = 0; //第二个编编码器总计数
+	BasketballRobot.encoderCount[0] = 0; //第三个编码器总计数
 
 	BasketballRobot.LastTheta = 0;	//上一时刻，机器人theta角
 	BasketballRobot.theta_offset = 0; //角度偏差矫正

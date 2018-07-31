@@ -100,33 +100,43 @@ void GetPosition(void)
 
 	float theta_inv[2][2]; //角度矩阵
 
-	if(GetYaw())
-	{
+//	if(GetYaw())
+//	{
 	
 	ReadEncoder();
 
-	BasketballRobot.LastTheta = BasketballRobot.ThetaR;
+	//BasketballRobot.LastTheta = BasketballRobot.ThetaR;
 
 	//theta_inv
 	theta_inv[0][0] = cos(BasketballRobot.ThetaR);
-	theta_inv[0][1] = -theta_inv[1][0];
 	theta_inv[1][0] = sin(BasketballRobot.ThetaR);
+	theta_inv[0][1] = -theta_inv[1][0];	
 	theta_inv[1][1] = theta_inv[0][0];
+	
+	//BasketballRobot.LastTheta = BasketballRobot.ThetaR;
 
 	nW = (BasketballRobot.w[0] + BasketballRobot.w[1] + BasketballRobot.w[2]) / 3.0f;
+	
+	
 	//除去自传偏差
 	l1 = BasketballRobot.w[0] - nW;
 	l2 = BasketballRobot.w[1] - nW;
 	l3 = BasketballRobot.w[2] - nW;
 
-	nX = -l1 / 20000;
+	nX = -l1 / 22400;
 	nY = -(-l2 + l3) / 1.7320508f / 22400;
 
 	//nX =
 
 	BasketballRobot.X += nX * theta_inv[0][0] + nY * theta_inv[0][1];
 	BasketballRobot.Y += nX * theta_inv[1][0] + nY * theta_inv[1][1];
-}
+	
+	BasketballRobot.encoderCount[0] += BasketballRobot.w[0];
+	BasketballRobot.encoderCount[1] += BasketballRobot.w[1];
+	BasketballRobot.encoderCount[2] += BasketballRobot.w[2];
+	
+	
+//}
 }
 
 void receiveVisionData(void)
