@@ -272,10 +272,10 @@ int main(void)
 						break;
 					case 1:
 						//机械臂下降
-						//Robot_armDown();
-						//2高电平往下，接红线，正转
-						__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,300);
-						__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,4000);
+						Robot_armDown();
+//						2高电平往下，接红线，正转
+//						__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_1,300);
+//						__HAL_TIM_SET_COMPARE(&htim9,TIM_CHANNEL_2,4000);
 						LED0 = !LED0;
 						break;
 					case 2:

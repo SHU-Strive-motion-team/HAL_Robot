@@ -250,14 +250,14 @@ void shoveMotor(shovemotor t)
 	else if (t == UP)
 	{
 		//CH1高电平,铲子向上，接黑线，电机反转
-		__HAL_TIM_SET_COMPARE(&htim9, TIM_CHANNEL_1, speed);
+		__HAL_TIM_SET_COMPARE(&htim9, TIM_CHANNEL_1, speed+500);
 		__HAL_TIM_SET_COMPARE(&htim9, TIM_CHANNEL_2, 0);
 	}
 	else if (t == DOWM)
 	{
 		//CH2高电平,铲子向下，接红线，电机正转
 		__HAL_TIM_SET_COMPARE(&htim9, TIM_CHANNEL_1, 0);
-		__HAL_TIM_SET_COMPARE(&htim9, TIM_CHANNEL_2, speed);
+		__HAL_TIM_SET_COMPARE(&htim9, TIM_CHANNEL_2, speed-500);
 	}
 }
 
