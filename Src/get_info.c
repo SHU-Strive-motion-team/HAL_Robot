@@ -77,10 +77,10 @@ u8 GetYaw(void)
 			BasketballRobot.ThetaD = BasketballRobot.ThetaD - 360;
 
 		USART2_RX_STA = 0;
-
-		//printf("yaw: %.2f   tim : %d \r\n    ", BasketballRobot.ThetaD, htim5.Instance->CNT);
+		HAL_UART_Receive_DMA(&huart2,(u8*)aRxBuffer2,USART2_REC_LEN);
+		printf("yaw: %.2f   tim : %d \r\n    ", BasketballRobot.ThetaD, htim5.Instance->CNT);
 		LED0 = !LED0;
-		LED1 = !LED0;
+		LED1 = !LED1;
 
 		//SendToPc(1, BasketballRobot.X, BasketballRobot.Y, BasketballRobot.ThetaD);
 		return 1;

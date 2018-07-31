@@ -45,8 +45,16 @@ void Control_Init(void)
 	//开启外设
 	HAL_UART_Receive_IT(&huart1, (u8 *)aRxBuffer1, 1);
 	//HAL_NVIC_EnableIRQ(USART2_IRQn);
-	HAL_UART_Receive_IT(&huart2, (u8 *)aRxBuffer2, USART2_REC_LEN);
+	//HAL_UART_Receive_IT(&huart2, (u8 *)aRxBuffer2, USART2_REC_LEN);
+	/*开启串口空闲中断*/
+	__HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);
+	/*启动串口DMA接收*/
+	HAL_UART_Receive_DMA(&huart2,(u8 *)aRxBuffer2,USART2_REC_LEN);
+	
+	HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+	
 	HAL_UART_Receive_IT(&huart3, (u8 *)aRxBuffer3, USART3_REC_LEN);
+	
 
 	HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1); //开始捕获 TIM1 的通道 1，红外遥控
 	HAL_TIM_Base_Start_IT(&htim1);				//使能更新中断，红外遥控

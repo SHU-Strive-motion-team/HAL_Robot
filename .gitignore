@@ -38,3 +38,5 @@ MDK-ARM/HAL_Robot.uvprojx
 *.uvprojx
 *.uvprojx
 *.uvoptx
+*.iex
+*.txt
