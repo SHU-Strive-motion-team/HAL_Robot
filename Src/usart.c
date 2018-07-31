@@ -450,7 +450,7 @@ void myUSART2_IRQHandler(void)
 						BasketballRobot.ThetaD = ((float)((USART2_RX_BUF[7]<<8)|aRxBuffer2[6]))/32768*180;
 ;
 						
-						BasketballRobot.ThetaR = BasketballRobot.ThetaD * PI / 180 + BasketballRobot.theta_offset;
+						BasketballRobot.ThetaR = BasketballRobot.ThetaD * PI / 180 ;
 						
 						while(BasketballRobot.ThetaR < 0)
 							BasketballRobot.ThetaR  = BasketballRobot.ThetaR + PI + PI;
