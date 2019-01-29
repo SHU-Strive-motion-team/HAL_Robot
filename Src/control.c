@@ -51,11 +51,11 @@ void Control_Init(void)
 	//HAL_UART_Receive_IT(&huart2, (u8 *)aRxBuffer2, USART2_REC_LEN);
 	/*开启串口空闲中断*/
 	__HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);
-	/*启动串口DMA接收*/
-	HAL_UART_Receive_DMA(&huart2,(u8 *)aRxBuffer2,USART2_REC_LEN);
-	
-	HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
-	
+//	/*启动串口DMA接收*/
+//	HAL_UART_Receive_DMA(&huart2,(u8 *)aRxBuffer2,USART2_REC_LEN);
+//	
+//	HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+//	
 	HAL_UART_Receive_IT(&huart3, (u8 *)aRxBuffer3, USART3_REC_LEN);
 	
 
